@@ -71,7 +71,7 @@ const Index = () => {
           <div className="flex justify-between items-center h-16">
             <Link to="/" className="flex items-center space-x-2">
               <Home className="h-8 w-8 text-blue-600" />
-              <span className="text-xl font-bold text-gray-900">AbodeAdvisor</span>
+              <span className="text-xl font-bold text-gray-900">makan360</span>
             </Link>
             <nav className="hidden md:flex space-x-8">
               <Link to="/" className="text-blue-600 font-medium">Home</Link>
@@ -337,7 +337,7 @@ const Index = () => {
             <div>
               <div className="flex items-center space-x-2 mb-4">
                 <Home className="h-8 w-8 text-blue-400" />
-                <span className="text-xl font-bold">AbodeAdvisor</span>
+                <span className="text-xl font-bold">makan360</span>
               </div>
               <p className="text-gray-400">
                 Your trusted partner in finding the perfect property. We make real estate simple and accessible.
@@ -374,7 +374,7 @@ const Index = () => {
           </div>
           
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 AbodeAdvisor. All rights reserved.</p>
+            <p>&copy; 2024 makan360. All rights reserved.</p>
           </div>
         </div>
       </footer>

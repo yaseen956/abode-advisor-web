@@ -66,7 +66,7 @@ const Projects = () => {
           <div className="flex justify-between items-center h-16">
             <Link to="/" className="flex items-center space-x-2">
               <Home className="h-8 w-8 text-blue-600" />
-              <span className="text-xl font-bold text-gray-900">AbodeAdvisor</span>
+              <span className="text-xl font-bold text-gray-900">makan360</span>
             </Link>
             <nav className="hidden md:flex space-x-8">
               <Link to="/" className="text-gray-700 hover:text-blue-600">Home</Link>

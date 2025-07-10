@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Search, Filter, MapPin, Bed, Bath, Square, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -7,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const propertyTypes = [
   "All Types",
@@ -81,7 +81,7 @@ const Properties = () => {
           <div className="flex justify-between items-center h-16">
             <Link to="/" className="flex items-center space-x-2">
               <Home className="h-8 w-8 text-blue-600" />
-              <span className="text-xl font-bold text-gray-900">AbodeAdvisor</span>
+              <span className="text-xl font-bold text-gray-900">makan360</span>
             </Link>
             <nav className="hidden md:flex space-x-8">
               <Link to="/" className="text-gray-700 hover:text-blue-600">Home</Link>
@@ -89,6 +89,9 @@ const Properties = () => {
               <Link to="/projects" className="text-gray-700 hover:text-blue-600">Projects</Link>
               <Link to="/list-property" className="text-gray-700 hover:text-blue-600">List Property</Link>
             </nav>
+            <div className="flex items-center space-x-4">
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       </header>

@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sell/List Your Property - Property99</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1><a href="index.html">Property99</a></h1>
+                </div>
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li><a href="index.html" class="nav-link">Buy</a></li>
+                        <li><a href="listings.html?type=rent" class="nav-link">Rent</a></li>
+                        <li><a href="listings.html?type=commercial" class="nav-link">Commercial</a></li>
+                        <li><a href="listings.html?type=projects" class="nav-link">Projects</a></li>
+                        <li><a href="agents.html" class="nav-link">Agents</a></li>
+                        <li><a href="sell-property.html" class="nav-link active">Sell</a></li>
+                        <li><a href="login.html" class="nav-link login-btn">Login</a></li>
+                    </ul>
+                </nav>
+                <div class="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <nav>
+                <a href="index.html">Home</a>
+                <span>/</span>
+                <span>Sell Property</span>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Sell Property Main -->
+    <main class="sell-property-main">
+        <div class="container">
+            <!-- Hero Section -->
+            <div class="sell-hero">
+                <div class="sell-hero-content">
+                    <h1>List Your Property</h1>
+                    <p>Reach thousands of potential buyers and get the best price for your property</p>
+                    <div class="hero-stats">
+                        <div class="stat-box">
+                            <span class="stat-number">50,000+</span>
+                            <span class="stat-label">Active Buyers</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number">95%</span>
+                            <span class="stat-label">Success Rate</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number">30 Days</span>
+                            <span class="stat-label">Avg. Selling Time</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="sell-hero-image">
+                    <img src="https://via.placeholder.com/500x400?text=Sell+Your+Property" alt="Sell Property">
+                </div>
+            </div>
+
+            <!-- Benefits Section -->
+            <div class="sell-benefits">
+                <h2>Why Choose Property99 to Sell Your Property?</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">🎯</div>
+                        <h3>Maximum Reach</h3>
+                        <p>Your property will be visible to thousands of verified buyers actively searching for properties</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">💰</div>
+                        <h3>Best Price</h3>
+                        <p>Our market analysis helps you set the right price to get maximum value for your property</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">🚀</div>
+                        <h3>Quick Sale</h3>
+                        <p>With our advanced matching algorithm, find serious buyers faster and close deals quickly</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">🛡️</div>
+                        <h3>Secure Process</h3>
+                        <p>All buyers are verified and we provide legal assistance for a smooth transaction</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Listing Form -->
+            <div class="listing-form-section">
+                <div class="form-header">
+                    <h2>Property Details</h2>
+                    <p>Fill in the details below to list your property</p>
+                </div>
+
+                <form class="listing-form" id="propertyListingForm">
+                    <!-- Progress Steps -->
+                    <div class="form-steps">
+                        <div class="step active" data-step="1">
+                            <span class="step-number">1</span>
+                            <span class="step-label">Basic Info</span>
+                        </div>
+                        <div class="step" data-step="2">
+                            <span class="step-number">2</span>
+                            <span class="step-label">Property Details</span>
+                        </div>
+                        <div class="step" data-step="3">
+                            <span class="step-number">3</span>
+                            <span class="step-label">Location & Amenities</span>
+                        </div>
+                        <div class="step" data-step="4">
+                            <span class="step-number">4</span>
+                            <span class="step-label">Photos & Pricing</span>
+                        </div>
+                        <div class="step" data-step="5">
+                            <span class="step-number">5</span>
+                            <span class="step-label">Contact Info</span>
+                        </div>
+                    </div>
+
+                    <!-- Step 1: Basic Information -->
+                    <div class="form-step active" id="step1">
+                        <h3>Basic Property Information</h3>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="listingType">I want to *</label>
+                                <select id="listingType" name="listingType" required>
+                                    <option value="">Select listing type</option>
+                                    <option value="sell">Sell</option>
+                                    <option value="rent">Rent/Lease</option>
+                                    <option value="pg">PG/Hostel</option>
+                                </select>
+                                <span class="error-message" id="listingTypeError"></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="propertyType">Property Type *</label>
+                                <select id="propertyType" name="propertyType" required>
+                                    <option value="">Select property type</option>
+                                    <option value="flat">Flat/Apartment</option>
+                                    <option value="house">Independent House/Villa</option>
+                                    <option value="plot">Plot/Land</option>
+                                    <option value="commercial">Commercial Space</option>
+                                    <option value="office">Office Space</option>
+                                    <option value="shop">Shop/Showroom</option>
+                                    <option value="warehouse">Warehouse/Godown</option>
+                                </select>
+                                <span class="error-message" id="propertyTypeError"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="propertyTitle">Property Title *</label>
+                            <input type="text" id="propertyTitle" name="propertyTitle" required 
+                                   placeholder="e.g., 3BHK Spacious Apartment in Prime Location">
+                            <span class="error-message" id="propertyTitleError"></span>
+                            <small class="field-help">This title will be displayed to potential buyers</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="propertyDescription">Property Description *</label>
+                            <textarea id="propertyDescription" name="propertyDescription" required 
+                                      rows="5" placeholder="Describe your property in detail - highlight key features, nearby landmarks, transportation, etc."></textarea>
+                            <span class="error-message" id="propertyDescriptionError"></span>
+                            <small class="field-help"><span id="descriptionCount">0</span>/1000 characters</small>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Property Details -->
+                    <div class="form-step" id="step2">
+                        <h3>Property Specifications</h3>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="bedrooms">Bedrooms *</label>
+                                <select id="bedrooms" name="bedrooms" required>
+                                    <option value="">Select bedrooms</option>
+                                    <option value="1">1 BHK</option>
+                                    <option value="2">2 BHK</option>
+                                    <option value="3">3 BHK</option>
+                                    <option value="4">4 BHK</option>
+                                    <option value="5">5 BHK</option>
+                                    <option value="5+">5+ BHK</option>
+                                </select>
+                                <span class="error-message" id="bedroomsError"></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="bathrooms">Bathrooms *</label>
+                                <select id="bathrooms" name="bathrooms" required>
+                                    <option value="">Select bathrooms</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5+">5+</option>
+                                </select>
+                                <span class="error-message" id="bathroomsError"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="builtupArea">Built-up Area (sq ft) *</label>
+                                <input type="number" id="builtupArea" name="builtupArea" required 
+                                       placeholder="e.g., 1200" min="100" max="50000">
+                                <span class="error-message" id="builtupAreaError"></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="carpetArea">Carpet Area (sq ft)</label>
+                                <input type="number" id="carpetArea" name="carpetArea" 
+                                       placeholder="e.g., 1000" min="50" max="50000">
+                                <span class="error-message" id="carpetAreaError"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="totalFloors">Total Floors</label>
+                                <select id="totalFloors" name="totalFloors">
+                                    <option value="">Select total floors</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="10">6-10</option>
+                                    <option value="20">11-20</option>
+                                    <option value="20+">20+</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="propertyFloor">Property Floor</label>
+                                <select id="propertyFloor" name="propertyFloor">
+                                    <option value="">Select floor</option>
+                                    <option value="0">Ground Floor</option>
+                                    <option value="1">1st Floor</option>
+                                    <option value="2">2nd Floor</option>
+                                    <option value="3">3rd Floor</option>
+                                    <option value="4">4th Floor</option>
+                                    <option value="5">5th Floor</option>
+                                    <option value="10">6-10 Floor</option>
+                                    <option value="15">11-15 Floor</option>
+                                    <option value="20">16-20 Floor</option>
+                                    <option value="20+">20+ Floor</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="furnishing">Furnishing Status *</label>
+                                <select id="furnishing" name="furnishing" required>
+                                    <option value="">Select furnishing</option>
+                                    <option value="fully-furnished">Fully Furnished</option>
+                                    <option value="semi-furnished">Semi Furnished</option>
+                                    <option value="unfurnished">Unfurnished</option>
+                                </select>
+                                <span class="error-message" id="furnishingError"></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="facing">Property Facing</label>
+                                <select id="facing" name="facing">
+                                    <option value="">Select facing direction</option>
+                                    <option value="north">North</option>
+                                    <option value="south">South</option>
+                                    <option value="east">East</option>
+                                    <option value="west">West</option>
+                                    <option value="north-east">North-East</option>
+                                    <option value="north-west">North-West</option>
+                                    <option value="south-east">South-East</option>
+                                    <option value="south-west">South-West</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="propertyAge">Property Age *</label>
+                            <select id="propertyAge" name="propertyAge" required>
+                                <option value="">Select property age</option>
+                                <option value="0-1">Under Construction</option>
+                                <option value="0-1">0-1 Year</option>
+                                <option value="1-5">1-5 Years</option>
+                                <option value="5-10">5-10 Years</option>
+                                <option value="10-15">10-15 Years</option>
+                                <option value="15-20">15-20 Years</option>
+                                <option value="20+">20+ Years</option>
+                            </select>
+                            <span class="error-message" id="propertyAgeError"></span>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Location & Amenities -->
+                    <div class="form-step" id="step3">
+                        <h3>Location Details</h3>
+                        
+                        <div class="form-group">
+                            <label for="address">Complete Address *</label>
+                            <textarea id="address" name="address" required rows="3" 
+                                      placeholder="Enter complete address including building name, street, area"></textarea>
+                            <span class="error-message" id="addressError"></span>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="city">City *</label>
+                                <select id="city" name="city" required>
+                                    <option value="">Select city</option>
+                                    <option value="mumbai">Mumbai</option>
+                                    <option value="delhi">Delhi</option>
+                                    <option value="bangalore">Bangalore</option>
+                                    <option value="pune">Pune</option>
+                                    <option value="hyderabad">Hyderabad</option>
+                                    <option value="chennai">Chennai</option>
+                                    <option value="kolkata">Kolkata</option>
+                                    <option value="ahmedabad">Ahmedabad</option>
+                                    <option value="jaipur">Jaipur</option>
+                                    <option value="surat">Surat</option>
+                                </select>
+                                <span class="error-message" id="cityError"></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="locality">Locality/Area *</label>
+                                <input type="text" id="locality" name="locality" required 
+                                       placeholder="e.g., Bandra West, Koramangala">
+                                <span class="error-message" id="localityError"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="pincode">Pincode *</label>
+                                <input type="text" id="pincode" name="pincode" required 
+                                       placeholder="e.g., 400050" pattern="[0-9]{6}">
+                                <span class="error-message" id="pincodeError"></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="landmark">Nearby Landmark</label>
+                                <input type="text" id="landmark" name="landmark" 
+                                       placeholder="e.g., Near Metro Station, Mall">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Amenities</label>
+                            <div class="amenities-grid">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="amenities" value="parking">
+                                    <span class="checkmark"></span>
+                                    Car Parking
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="amenities" value="lift">
+                                    <span class="checkmark"></span>
+                                    Lift/Elevator
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="amenities" value="gym">
+                                    <span class="checkmark"></span>
+                                    Gym/Fitness Center
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="amenities" value="swimming-pool">
+                                    <span class="checkmark"></span>
+                                    Swimming Pool
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="amenities" value="security">
+                                    <span class="checkmark"></span>
+                                    24x7 Security
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="amenities" value="power-backup">
+                                    <span class="checkmark"></span>
+                                    Power Backup
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="amenities" value="garden">
+                                    <span class="checkmark"></span>
+                                    Garden/Park
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="amenities" value="clubhouse">
+                                    <span class="checkmark"></span>
+                                    Clubhouse
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="amenities" value="playground">
+                                    <span class="checkmark"></span>
+                                    Children's Play Area
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="amenities" value="maintenance">
+                                    <span class="checkmark"></span>
+                                    Maintenance Staff
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Photos & Pricing -->
+                    <div class="form-step" id="step4">
+                        <h3>Property Photos & Pricing</h3>
+                        
+                        <div class="form-group">
+                            <label for="propertyImages">Property Photos *</label>
+                            <div class="image-upload-area">
+                                <div class="upload-box" id="uploadBox">
+                                    <div class="upload-icon">📷</div>
+                                    <p>Click or drag images here to upload</p>
+                                    <small>Upload up to 10 photos (JPG, PNG, max 5MB each)</small>
+                                    <input type="file" id="propertyImages" name="propertyImages" 
+                                           multiple accept="image/*" style="display: none;">
+                                </div>
+                                <div class="image-preview" id="imagePreview"></div>
+                            </div>
+                            <span class="error-message" id="propertyImagesError"></span>
+                        </div>
+
+                        <div class="pricing-section">
+                            <h4>Pricing Information</h4>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="expectedPrice">Expected Price *</label>
+                                    <div class="price-input">
+                                        <span class="currency">₹</span>
+                                        <input type="number" id="expectedPrice" name="expectedPrice" required 
+                                               placeholder="e.g., 5000000" min="100000">
+                                        <select id="priceUnit" name="priceUnit" required>
+                                            <option value="total">Total Price</option>
+                                            <option value="per-sqft">Per Sq Ft</option>
+                                        </select>
+                                    </div>
+                                    <span class="error-message" id="expectedPriceError"></span>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="negotiable">Price Negotiable?</label>
+                                    <select id="negotiable" name="negotiable">
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="price-calculator" id="priceCalculator" style="display: none;">
+                                <div class="calc-result">
+                                    <span class="calc-label">Price per sq ft:</span>
+                                    <span class="calc-value" id="pricePerSqft">₹0</span>
+                                </div>
+                                <div class="calc-result">
+                                    <span class="calc-label">Total Price:</span>
+                                    <span class="calc-value" id="totalPrice">₹0</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="availability">Available From *</label>
+                                <select id="availability" name="availability" required>
+                                    <option value="">Select availability</option>
+                                    <option value="immediate">Immediate</option>
+                                    <option value="within-15-days">Within 15 Days</option>
+                                    <option value="within-30-days">Within 30 Days</option>
+                                    <option value="within-3-months">Within 3 Months</option>
+                                    <option value="specific-date">Specific Date</option>
+                                </select>
+                                <span class="error-message" id="availabilityError"></span>
+                            </div>
+
+                            <div class="form-group" id="specificDateGroup" style="display: none;">
+                                <label for="availableDate">Available Date</label>
+                                <input type="date" id="availableDate" name="availableDate">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 5: Contact Information -->
+                    <div class="form-step" id="step5">
+                        <h3>Contact Information</h3>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="ownerName">Owner Name *</label>
+                                <input type="text" id="ownerName" name="ownerName" required 
+                                       placeholder="Enter your full name">
+                                <span class="error-message" id="ownerNameError"></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="ownerType">You are *</label>
+                                <select id="ownerType" name="ownerType" required>
+                                    <option value="">Select owner type</option>
+                                    <option value="owner">Owner</option>
+                                    <option value="agent">Agent</option>
+                                    <option value="builder">Builder</option>
+                                </select>
+                                <span class="error-message" id="ownerTypeError"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contactPhone">Contact Phone *</label>
+                                <input type="tel" id="contactPhone" name="contactPhone" required 
+                                       placeholder="+91 98765 43210">
+                                <span class="error-message" id="contactPhoneError"></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contactEmail">Contact Email *</label>
+                                <input type="email" id="contactEmail" name="contactEmail" required 
+                                       placeholder="your.email@example.com">
+                                <span class="error-message" id="contactEmailError"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contactTime">Best Time to Contact</label>
+                            <select id="contactTime" name="contactTime">
+                                <option value="">Select preferred time</option>
+                                <option value="morning">Morning (9 AM - 12 PM)</option>
+                                <option value="afternoon">Afternoon (12 PM - 5 PM)</option>
+                                <option value="evening">Evening (5 PM - 8 PM)</option>
+                                <option value="anytime">Anytime</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="whatsappUpdates" id="whatsappUpdates">
+                                <span class="checkmark"></span>
+                                Send updates on WhatsApp
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="agreeTerms" id="agreeTerms" required>
+                                <span class="checkmark"></span>
+                                I agree to the <a href="#" class="link">Terms & Conditions</a> and 
+                                <a href="#" class="link">Privacy Policy</a> *
+                            </label>
+                            <span class="error-message" id="agreeTermsError"></span>
+                        </div>
+                    </div>
+
+                    <!-- Form Navigation -->
+                    <div class="form-navigation">
+                        <button type="button" class="btn secondary" id="prevBtn" style="display: none;">
+                            ← Previous
+                        </button>
+                        <button type="button" class="btn primary" id="nextBtn">
+                            Next →
+                        </button>
+                        <button type="submit" class="btn primary" id="submitBtn" style="display: none;">
+                            Submit Listing
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Modal -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h4>🎉 Property Listed Successfully!</h4>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="success-content">
+                    <div class="success-icon">✅</div>
+                    <h3>Congratulations!</h3>
+                    <p>Your property has been successfully listed on Property99.</p>
+                    <div class="listing-details">
+                        <p><strong>Property ID:</strong> <span id="generatedPropertyId">P99-2024-001</span></p>
+                        <p><strong>Status:</strong> Under Review</p>
+                        <p><strong>Estimated Time:</strong> 24-48 hours for approval</p>
+                    </div>
+                    <div class="next-steps">
+                        <h4>What's Next?</h4>
+                        <ul>
+                            <li>Our team will review your listing within 24-48 hours</li>
+                            <li>You'll receive an email confirmation once approved</li>
+                            <li>Your property will be live and visible to buyers</li>
+                            <li>You'll start receiving inquiries from interested buyers</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn secondary" onclick="listAnotherProperty()">List Another Property</button>
+                <button class="btn primary" onclick="viewMyListings()">View My Listings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Property99</h4>
+                    <p>India's leading property portal for buying, selling, and renting properties.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">📘 Facebook</a>
+                        <a href="#" class="social-link">🐦 Twitter</a>
+                        <a href="#" class="social-link">📸 Instagram</a>
+                        <a href="#" class="social-link">💼 LinkedIn</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#" class="footer-link">About Us</a></li>
+                        <li><a href="#" class="footer-link">Terms & Conditions</a></li>
+                        <li><a href="#" class="footer-link">Privacy Policy</a></li>
+                        <li><a href="#" class="footer-link">FAQs</a></li>
+                        <li><a href="#" class="footer-link">Careers</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="listings.html" class="footer-link">Buy Property</a></li>
+                        <li><a href="listings.html?type=rent" class="footer-link">Rent Property</a></li>
+                        <li><a href="listings.html?type=commercial" class="footer-link">Commercial</a></li>
+                        <li><a href="agents.html" class="footer-link">Find Agents</a></li>
+                        <li><a href="#" class="footer-link">Property Valuation</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe to get latest property updates</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Enter your email" class="newsletter-input">
+                        <button type="submit" class="newsletter-btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Property99. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

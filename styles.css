@@ -2299,9 +2299,644 @@ body {
         margin-bottom: 1rem;
     }
     
-    .benefit-icon {
+         .benefit-icon {
+         width: 40px;
+         height: 40px;
+         font-size: 1.5rem;
+     }
+}
+
+/* Sell Property Page Styles */
+.sell-property-main {
+    padding: 2rem 0;
+}
+
+.sell-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    margin-bottom: 3rem;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 3rem;
+    border-radius: 15px;
+}
+
+.sell-hero-content h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.sell-hero-content p {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.hero-stats {
+    display: flex;
+    gap: 2rem;
+}
+
+.stat-box {
+    text-align: center;
+    padding: 1rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    min-width: 120px;
+}
+
+.stat-number {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #e74c3c;
+    margin-bottom: 0.3rem;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.sell-hero-image img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.sell-benefits {
+    margin-bottom: 3rem;
+}
+
+.sell-benefits h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 2rem;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.benefit-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.benefit-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.benefit-card .benefit-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    background: #f8f9fa;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+}
+
+.benefit-card h3 {
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.benefit-card p {
+    color: #666;
+    line-height: 1.6;
+}
+
+.listing-form-section {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.form-header h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.form-header p {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.form-steps {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.form-steps::before {
+    content: '';
+    position: absolute;
+    top: 25px;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: #eee;
+    z-index: 1;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+    z-index: 2;
+    background: white;
+    padding: 0 1rem;
+    min-width: 100px;
+}
+
+.step-number {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #eee;
+    color: #999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.step.active .step-number,
+.step.completed .step-number {
+    background: #e74c3c;
+    color: white;
+}
+
+.step-label {
+    font-size: 0.9rem;
+    color: #666;
+    text-align: center;
+    font-weight: 500;
+}
+
+.step.active .step-label {
+    color: #e74c3c;
+    font-weight: 600;
+}
+
+.listing-form {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.form-step {
+    display: none;
+}
+
+.form-step.active {
+    display: block;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.form-step h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.field-help {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 0.3rem;
+    display: block;
+}
+
+.amenities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+.image-upload-area {
+    border: 2px dashed #ddd;
+    border-radius: 10px;
+    padding: 2rem;
+    text-align: center;
+    background: #fafafa;
+    transition: all 0.3s ease;
+}
+
+.image-upload-area:hover {
+    border-color: #e74c3c;
+    background: #fef5f5;
+}
+
+.upload-box {
+    cursor: pointer;
+    padding: 2rem;
+}
+
+.upload-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.6;
+}
+
+.upload-box p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.upload-box small {
+    color: #999;
+}
+
+.image-preview {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.preview-item {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #f8f9fa;
+}
+
+.preview-item img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+}
+
+.remove-image {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pricing-section {
+    border-top: 1px solid #eee;
+    padding-top: 2rem;
+    margin-top: 2rem;
+}
+
+.pricing-section h4 {
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+
+.price-input {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.currency {
+    background: #f8f9fa;
+    padding: 0.8rem;
+    border-right: 1px solid #ddd;
+    font-weight: 600;
+    color: #333;
+}
+
+.price-input input {
+    flex: 1;
+    border: none;
+    padding: 0.8rem;
+    font-size: 1rem;
+}
+
+.price-input input:focus {
+    outline: none;
+}
+
+.price-input select {
+    border: none;
+    border-left: 1px solid #ddd;
+    padding: 0.8rem;
+    background: #f8f9fa;
+    font-size: 0.9rem;
+}
+
+.price-calculator {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+}
+
+.calc-result {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.calc-label {
+    color: #666;
+}
+
+.calc-value {
+    font-weight: bold;
+    color: #e74c3c;
+}
+
+.form-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #eee;
+}
+
+.btn {
+    padding: 0.8rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: none;
+}
+
+.btn.primary {
+    background: #e74c3c;
+    color: white;
+}
+
+.btn.primary:hover {
+    background: #c0392b;
+    transform: translateY(-2px);
+}
+
+.btn.secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn.secondary:hover {
+    background: #5a6268;
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn:disabled:hover {
+    transform: none;
+}
+
+/* Success Modal Enhancements */
+.success-content {
+    text-align: center;
+}
+
+.success-content .success-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.success-content h3 {
+    color: #333;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.listing-details {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    text-align: left;
+}
+
+.listing-details p {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.next-steps {
+    text-align: left;
+    margin-top: 1.5rem;
+}
+
+.next-steps h4 {
+    color: #333;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.next-steps ul {
+    list-style: none;
+    padding: 0;
+}
+
+.next-steps li {
+    padding: 0.5rem 0;
+    position: relative;
+    padding-left: 1.5rem;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.next-steps li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #27ae60;
+    font-weight: bold;
+}
+
+/* Form Validation */
+.form-group input.invalid,
+.form-group select.invalid,
+.form-group textarea.invalid {
+    border-color: #e74c3c;
+    background-color: #fdf2f2;
+}
+
+.form-group input.valid,
+.form-group select.valid,
+.form-group textarea.valid {
+    border-color: #27ae60;
+    background-color: #f2fdf5;
+}
+
+/* Loading State */
+.btn.loading {
+    position: relative;
+    color: transparent;
+}
+
+.btn.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Responsive Design for Sell Property Page */
+@media (max-width: 768px) {
+    .sell-hero {
+        grid-template-columns: 1fr;
+        padding: 2rem;
+        gap: 2rem;
+    }
+    
+    .sell-hero-content h1 {
+        font-size: 2rem;
+    }
+    
+    .hero-stats {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .stat-box {
+        min-width: 100px;
+    }
+    
+    .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-steps {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    
+    .form-steps::before {
+        display: none;
+    }
+    
+    .step {
+        min-width: 80px;
+    }
+    
+    .step-number {
         width: 40px;
         height: 40px;
+        font-size: 1rem;
+    }
+    
+    .step-label {
+        font-size: 0.8rem;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .amenities-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .listing-form-section {
+        padding: 1.5rem;
+    }
+    
+    .form-navigation {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .sell-hero {
+        padding: 1.5rem;
+    }
+    
+    .sell-hero-content h1 {
+        font-size: 1.8rem;
+    }
+    
+    .hero-stats {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .listing-form-section {
+        padding: 1rem;
+    }
+    
+    .form-header h2 {
         font-size: 1.5rem;
+    }
+    
+    .image-upload-area {
+        padding: 1rem;
+    }
+    
+    .upload-box {
+        padding: 1rem;
+    }
+    
+    .upload-icon {
+        font-size: 2rem;
     }
 }

@@ -380,6 +380,9 @@ function initializeWebsite() {
         case 'login':
             initializeLoginPage();
             break;
+        case 'sell-property':
+            initializeSellPropertyPage();
+            break;
     }
     
     // Initialize common functionality
@@ -395,6 +398,7 @@ function getCurrentPage() {
     if (filename.includes('agents')) return 'agents';
     if (filename.includes('contact')) return 'contact';
     if (filename.includes('login')) return 'login';
+    if (filename.includes('sell-property')) return 'sell-property';
     return 'index';
 }
 
@@ -1831,3 +1835,509 @@ window.socialLogin = socialLogin;
 window.showForgotPassword = showForgotPassword;
 window.showLogin = showLogin;
 window.closeModal = closeModal;
+
+// Sell Property Page Functions
+let currentStep = 1;
+let totalSteps = 5;
+let propertyFormData = {};
+let uploadedImages = [];
+
+function initializeSellPropertyPage() {
+    setupFormSteps();
+    setupFormValidation();
+    setupImageUpload();
+    setupPriceCalculator();
+    setupDependentFields();
+    setupFormSubmission();
+}
+
+function setupFormSteps() {
+    const nextBtn = document.getElementById('nextBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const submitBtn = document.getElementById('submitBtn');
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', nextStep);
+    }
+    
+    if (prevBtn) {
+        prevBtn.addEventListener('click', prevStep);
+    }
+    
+    if (submitBtn) {
+        submitBtn.addEventListener('click', handleFormSubmission);
+    }
+    
+    // Initialize first step
+    showStep(1);
+}
+
+function showStep(stepNumber) {
+    // Hide all steps
+    document.querySelectorAll('.form-step').forEach(step => {
+        step.classList.remove('active');
+    });
+    
+    // Show current step
+    const currentStepElement = document.getElementById(`step${stepNumber}`);
+    if (currentStepElement) {
+        currentStepElement.classList.add('active');
+    }
+    
+    // Update step indicators
+    document.querySelectorAll('.step').forEach((step, index) => {
+        step.classList.remove('active', 'completed');
+        if (index + 1 === stepNumber) {
+            step.classList.add('active');
+        } else if (index + 1 < stepNumber) {
+            step.classList.add('completed');
+        }
+    });
+    
+    // Update navigation buttons
+    const nextBtn = document.getElementById('nextBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const submitBtn = document.getElementById('submitBtn');
+    
+    if (prevBtn) {
+        prevBtn.style.display = stepNumber === 1 ? 'none' : 'inline-block';
+    }
+    
+    if (nextBtn) {
+        nextBtn.style.display = stepNumber === totalSteps ? 'none' : 'inline-block';
+    }
+    
+    if (submitBtn) {
+        submitBtn.style.display = stepNumber === totalSteps ? 'inline-block' : 'none';
+    }
+    
+    currentStep = stepNumber;
+}
+
+function nextStep() {
+    if (validateCurrentStep()) {
+        if (currentStep < totalSteps) {
+            showStep(currentStep + 1);
+        }
+    }
+}
+
+function prevStep() {
+    if (currentStep > 1) {
+        showStep(currentStep - 1);
+    }
+}
+
+function validateCurrentStep() {
+    let isValid = true;
+    const currentStepElement = document.getElementById(`step${currentStep}`);
+    const requiredFields = currentStepElement.querySelectorAll('[required]');
+    
+    requiredFields.forEach(field => {
+        if (!validateField(field)) {
+            isValid = false;
+        }
+    });
+    
+    // Special validation for step 4 (images)
+    if (currentStep === 4 && uploadedImages.length === 0) {
+        showFieldError(null, document.getElementById('propertyImagesError'), 'Please upload at least one property image');
+        isValid = false;
+    }
+    
+    return isValid;
+}
+
+function validateField(field) {
+    const value = field.value.trim();
+    const fieldType = field.type;
+    const fieldName = field.name;
+    const errorElement = document.getElementById(field.id + 'Error');
+    
+    // Clear previous validation
+    field.classList.remove('invalid', 'valid');
+    if (errorElement) {
+        errorElement.textContent = '';
+    }
+    
+    // Check if required field is empty
+    if (field.hasAttribute('required') && !value) {
+        showFieldError(field, errorElement, `${getFieldLabel(fieldName)} is required`);
+        return false;
+    }
+    
+    // Field-specific validation
+    if (value) {
+        switch (fieldType) {
+            case 'email':
+                if (!isValidEmail(value)) {
+                    showFieldError(field, errorElement, 'Please enter a valid email address');
+                    return false;
+                }
+                break;
+                
+            case 'tel':
+                if (!isValidPhone(value)) {
+                    showFieldError(field, errorElement, 'Please enter a valid phone number');
+                    return false;
+                }
+                break;
+                
+            case 'number':
+                if (fieldName === 'expectedPrice' && parseInt(value) < 100000) {
+                    showFieldError(field, errorElement, 'Price should be at least ₹1,00,000');
+                    return false;
+                }
+                if (fieldName === 'builtupArea' && parseInt(value) < 100) {
+                    showFieldError(field, errorElement, 'Area should be at least 100 sq ft');
+                    return false;
+                }
+                break;
+        }
+        
+        // Special validations
+        if (fieldName === 'pincode' && !/^\d{6}$/.test(value)) {
+            showFieldError(field, errorElement, 'Please enter a valid 6-digit pincode');
+            return false;
+        }
+        
+        if (fieldName === 'propertyDescription' && value.length < 50) {
+            showFieldError(field, errorElement, 'Description should be at least 50 characters');
+            return false;
+        }
+    }
+    
+    // Show success state
+    field.classList.add('valid');
+    return true;
+}
+
+function getFieldLabel(fieldName) {
+    const labels = {
+        'listingType': 'Listing type',
+        'propertyType': 'Property type',
+        'propertyTitle': 'Property title',
+        'propertyDescription': 'Property description',
+        'bedrooms': 'Bedrooms',
+        'bathrooms': 'Bathrooms',
+        'builtupArea': 'Built-up area',
+        'furnishing': 'Furnishing status',
+        'propertyAge': 'Property age',
+        'address': 'Address',
+        'city': 'City',
+        'locality': 'Locality',
+        'pincode': 'Pincode',
+        'expectedPrice': 'Expected price',
+        'availability': 'Availability',
+        'ownerName': 'Owner name',
+        'ownerType': 'Owner type',
+        'contactPhone': 'Contact phone',
+        'contactEmail': 'Contact email'
+    };
+    return labels[fieldName] || fieldName;
+}
+
+function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function isValidPhone(phone) {
+    return /^(\+91|91)?[6-9]\d{9}$/.test(phone.replace(/\s+/g, ''));
+}
+
+function showFieldError(field, errorElement, message) {
+    if (field) {
+        field.classList.remove('valid');
+        field.classList.add('invalid');
+    }
+    if (errorElement) {
+        errorElement.textContent = message;
+    }
+}
+
+function setupFormValidation() {
+    // Real-time validation on blur
+    document.querySelectorAll('.listing-form input, .listing-form select, .listing-form textarea').forEach(field => {
+        field.addEventListener('blur', () => {
+            if (field.value.trim()) {
+                validateField(field);
+            }
+        });
+        
+        // Character count for description
+        if (field.id === 'propertyDescription') {
+            field.addEventListener('input', updateDescriptionCount);
+        }
+    });
+}
+
+function updateDescriptionCount() {
+    const textarea = document.getElementById('propertyDescription');
+    const counter = document.getElementById('descriptionCount');
+    
+    if (textarea && counter) {
+        const count = textarea.value.length;
+        counter.textContent = count;
+        
+        if (count > 1000) {
+            counter.style.color = '#e74c3c';
+            textarea.value = textarea.value.substring(0, 1000);
+            counter.textContent = '1000';
+        } else {
+            counter.style.color = count < 50 ? '#e74c3c' : '#27ae60';
+        }
+    }
+}
+
+function setupImageUpload() {
+    const uploadBox = document.getElementById('uploadBox');
+    const fileInput = document.getElementById('propertyImages');
+    const imagePreview = document.getElementById('imagePreview');
+    
+    if (uploadBox && fileInput) {
+        // Click to upload
+        uploadBox.addEventListener('click', () => {
+            fileInput.click();
+        });
+        
+        // Drag and drop
+        uploadBox.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadBox.style.borderColor = '#e74c3c';
+        });
+        
+        uploadBox.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            uploadBox.style.borderColor = '#ddd';
+        });
+        
+        uploadBox.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadBox.style.borderColor = '#ddd';
+            handleFileUpload(e.dataTransfer.files);
+        });
+        
+        // File input change
+        fileInput.addEventListener('change', (e) => {
+            handleFileUpload(e.target.files);
+        });
+    }
+}
+
+function handleFileUpload(files) {
+    const maxFiles = 10;
+    const maxFileSize = 5 * 1024 * 1024; // 5MB
+    
+    for (let i = 0; i < files.length && uploadedImages.length < maxFiles; i++) {
+        const file = files[i];
+        
+        // Validate file type
+        if (!file.type.startsWith('image/')) {
+            alert('Please select only image files');
+            continue;
+        }
+        
+        // Validate file size
+        if (file.size > maxFileSize) {
+            alert(`${file.name} is too large. Maximum size is 5MB`);
+            continue;
+        }
+        
+        // Add to uploaded images
+        const imageData = {
+            file: file,
+            id: Date.now() + i,
+            url: URL.createObjectURL(file)
+        };
+        
+        uploadedImages.push(imageData);
+        displayImagePreview(imageData);
+    }
+    
+    updateUploadUI();
+}
+
+function displayImagePreview(imageData) {
+    const imagePreview = document.getElementById('imagePreview');
+    if (!imagePreview) return;
+    
+    const previewItem = document.createElement('div');
+    previewItem.className = 'preview-item';
+    previewItem.dataset.imageId = imageData.id;
+    
+    previewItem.innerHTML = `
+        <img src="${imageData.url}" alt="Property image">
+        <button type="button" class="remove-image" onclick="removeImage(${imageData.id})">×</button>
+    `;
+    
+    imagePreview.appendChild(previewItem);
+}
+
+function removeImage(imageId) {
+    // Remove from array
+    uploadedImages = uploadedImages.filter(img => img.id !== imageId);
+    
+    // Remove from preview
+    const previewItem = document.querySelector(`[data-image-id="${imageId}"]`);
+    if (previewItem) {
+        previewItem.remove();
+    }
+    
+    updateUploadUI();
+}
+
+function updateUploadUI() {
+    const uploadBox = document.getElementById('uploadBox');
+    const errorElement = document.getElementById('propertyImagesError');
+    
+    if (uploadBox) {
+        if (uploadedImages.length >= 10) {
+            uploadBox.style.display = 'none';
+        } else {
+            uploadBox.style.display = 'block';
+            uploadBox.querySelector('p').textContent = uploadedImages.length > 0 ? 
+                `Add more images (${uploadedImages.length}/10)` : 
+                'Click or drag images here to upload';
+        }
+    }
+    
+    // Clear error if images are uploaded
+    if (uploadedImages.length > 0 && errorElement) {
+        errorElement.textContent = '';
+    }
+}
+
+function setupPriceCalculator() {
+    const priceInput = document.getElementById('expectedPrice');
+    const priceUnit = document.getElementById('priceUnit');
+    const areaInput = document.getElementById('builtupArea');
+    const calculator = document.getElementById('priceCalculator');
+    const pricePerSqft = document.getElementById('pricePerSqft');
+    const totalPrice = document.getElementById('totalPrice');
+    
+    function updatePriceCalculation() {
+        const price = parseFloat(priceInput?.value) || 0;
+        const area = parseFloat(areaInput?.value) || 0;
+        const unit = priceUnit?.value;
+        
+        if (price > 0 && area > 0 && calculator) {
+            calculator.style.display = 'block';
+            
+            if (unit === 'per-sqft') {
+                const total = price * area;
+                pricePerSqft.textContent = `₹${price.toLocaleString()}`;
+                totalPrice.textContent = `₹${total.toLocaleString()}`;
+            } else {
+                const perSqft = Math.round(price / area);
+                pricePerSqft.textContent = `₹${perSqft.toLocaleString()}`;
+                totalPrice.textContent = `₹${price.toLocaleString()}`;
+            }
+        } else {
+            calculator.style.display = 'none';
+        }
+    }
+    
+    if (priceInput) priceInput.addEventListener('input', updatePriceCalculation);
+    if (priceUnit) priceUnit.addEventListener('change', updatePriceCalculation);
+    if (areaInput) areaInput.addEventListener('input', updatePriceCalculation);
+}
+
+function setupDependentFields() {
+    // Show/hide specific date field
+    const availabilitySelect = document.getElementById('availability');
+    const specificDateGroup = document.getElementById('specificDateGroup');
+    
+    if (availabilitySelect) {
+        availabilitySelect.addEventListener('change', function() {
+            if (specificDateGroup) {
+                specificDateGroup.style.display = this.value === 'specific-date' ? 'block' : 'none';
+            }
+        });
+    }
+}
+
+function setupFormSubmission() {
+    const form = document.getElementById('propertyListingForm');
+    if (form) {
+        form.addEventListener('submit', handleFormSubmission);
+    }
+}
+
+function handleFormSubmission(event) {
+    event.preventDefault();
+    
+    // Final validation
+    if (!validateCurrentStep()) {
+        return;
+    }
+    
+    // Collect form data
+    const formData = new FormData(document.getElementById('propertyListingForm'));
+    const propertyData = {};
+    
+    // Convert FormData to object
+    for (let [key, value] of formData.entries()) {
+        if (propertyData[key]) {
+            // Handle multiple values (like amenities)
+            if (Array.isArray(propertyData[key])) {
+                propertyData[key].push(value);
+            } else {
+                propertyData[key] = [propertyData[key], value];
+            }
+        } else {
+            propertyData[key] = value;
+        }
+    }
+    
+    // Add uploaded images
+    propertyData.images = uploadedImages.map(img => img.file.name);
+    propertyData.imageCount = uploadedImages.length;
+    
+    // Generate property ID
+    const propertyId = `P99-${new Date().getFullYear()}-${String(Date.now()).slice(-6)}`;
+    propertyData.id = propertyId;
+    propertyData.submissionDate = new Date().toISOString();
+    propertyData.status = 'pending';
+    
+    // Simulate form submission
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.classList.add('loading');
+    submitBtn.disabled = true;
+    
+    setTimeout(() => {
+        submitBtn.classList.remove('loading');
+        submitBtn.disabled = false;
+        
+        // Store property data
+        const existingListings = JSON.parse(localStorage.getItem('userPropertyListings') || '[]');
+        existingListings.push(propertyData);
+        localStorage.setItem('userPropertyListings', JSON.stringify(existingListings));
+        
+        // Show success modal
+        document.getElementById('generatedPropertyId').textContent = propertyId;
+        document.getElementById('successModal').classList.add('active');
+        
+    }, 3000);
+}
+
+function listAnotherProperty() {
+    // Reset form
+    document.getElementById('propertyListingForm').reset();
+    uploadedImages = [];
+    document.getElementById('imagePreview').innerHTML = '';
+    updateUploadUI();
+    showStep(1);
+    closeModal();
+}
+
+function viewMyListings() {
+    // In a real app, this would navigate to user dashboard
+    alert('Redirecting to your property listings dashboard...');
+    closeModal();
+    window.location.href = 'index.html';
+}
+
+// Export functions for global access
+window.removeImage = removeImage;
+window.listAnotherProperty = listAnotherProperty;
+window.viewMyListings = viewMyListings;

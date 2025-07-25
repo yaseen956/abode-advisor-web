@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Property99</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1><a href="index.html">Property99</a></h1>
+                </div>
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li><a href="index.html" class="nav-link">Buy</a></li>
+                        <li><a href="listings.html?type=rent" class="nav-link">Rent</a></li>
+                        <li><a href="listings.html?type=commercial" class="nav-link">Commercial</a></li>
+                        <li><a href="listings.html?type=projects" class="nav-link">Projects</a></li>
+                        <li><a href="agents.html" class="nav-link">Agents</a></li>
+                        <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Login/Register Main -->
+    <main class="auth-main">
+        <div class="container">
+            <!-- Auth Container -->
+            <div class="auth-container">
+                <!-- Left Side - Benefits -->
+                <div class="auth-benefits">
+                    <div class="benefits-content">
+                        <h2>Welcome to Property99</h2>
+                        <p class="benefits-subtitle">India's most trusted real estate platform</p>
+                        
+                        <div class="benefits-list">
+                            <div class="benefit-item">
+                                <div class="benefit-icon">🏠</div>
+                                <div class="benefit-text">
+                                    <h4>Find Your Dream Home</h4>
+                                    <p>Browse thousands of verified properties across India</p>
+                                </div>
+                            </div>
+                            
+                            <div class="benefit-item">
+                                <div class="benefit-icon">💰</div>
+                                <div class="benefit-text">
+                                    <h4>Best Deals & Prices</h4>
+                                    <p>Get exclusive deals and negotiate directly with owners</p>
+                                </div>
+                            </div>
+                            
+                            <div class="benefit-item">
+                                <div class="benefit-icon">🔒</div>
+                                <div class="benefit-text">
+                                    <h4>Secure & Verified</h4>
+                                    <p>All properties and agents are verified for your safety</p>
+                                </div>
+                            </div>
+                            
+                            <div class="benefit-item">
+                                <div class="benefit-icon">📱</div>
+                                <div class="benefit-text">
+                                    <h4>Easy Communication</h4>
+                                    <p>Connect directly with property owners and agents</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stats-section">
+                            <div class="stat-item">
+                                <span class="stat-number">50,000+</span>
+                                <span class="stat-label">Properties Listed</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">10,000+</span>
+                                <span class="stat-label">Happy Customers</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">500+</span>
+                                <span class="stat-label">Verified Agents</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side - Forms -->
+                <div class="auth-forms">
+                    <!-- Form Tabs -->
+                    <div class="auth-tabs">
+                        <button class="auth-tab active" data-tab="login">Login</button>
+                        <button class="auth-tab" data-tab="register">Sign Up</button>
+                    </div>
+
+                    <!-- Login Form -->
+                    <div class="auth-form-container active" id="loginForm">
+                        <div class="form-header">
+                            <h3>Welcome Back!</h3>
+                            <p>Please sign in to your account</p>
+                        </div>
+
+                        <form class="auth-form" id="loginFormData">
+                            <div class="form-group">
+                                <label for="loginEmail">Email Address</label>
+                                <input type="email" id="loginEmail" name="email" required placeholder="Enter your email">
+                                <span class="error-message" id="loginEmailError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="loginPassword">Password</label>
+                                <div class="password-input">
+                                    <input type="password" id="loginPassword" name="password" required placeholder="Enter your password">
+                                    <button type="button" class="password-toggle" onclick="togglePassword('loginPassword')">
+                                        👁️
+                                    </button>
+                                </div>
+                                <span class="error-message" id="loginPasswordError"></span>
+                            </div>
+
+                            <div class="form-options">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="rememberMe" id="rememberMe">
+                                    <span class="checkmark"></span>
+                                    Remember me
+                                </label>
+                                <a href="#" class="forgot-password" onclick="showForgotPassword()">Forgot Password?</a>
+                            </div>
+
+                            <button type="submit" class="auth-btn primary">Sign In</button>
+
+                            <div class="divider">
+                                <span>or</span>
+                            </div>
+
+                            <div class="social-login">
+                                <button type="button" class="social-btn google" onclick="socialLogin('google')">
+                                    <span class="social-icon">🔍</span>
+                                    Continue with Google
+                                </button>
+                                <button type="button" class="social-btn facebook" onclick="socialLogin('facebook')">
+                                    <span class="social-icon">📘</span>
+                                    Continue with Facebook
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Register Form -->
+                    <div class="auth-form-container" id="registerForm">
+                        <div class="form-header">
+                            <h3>Create Account</h3>
+                            <p>Join thousands of satisfied customers</p>
+                        </div>
+
+                        <form class="auth-form" id="registerFormData">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName">First Name</label>
+                                    <input type="text" id="firstName" name="firstName" required placeholder="First name">
+                                    <span class="error-message" id="firstNameError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last Name</label>
+                                    <input type="text" id="lastName" name="lastName" required placeholder="Last name">
+                                    <span class="error-message" id="lastNameError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="registerEmail">Email Address</label>
+                                <input type="email" id="registerEmail" name="email" required placeholder="Enter your email">
+                                <span class="error-message" id="registerEmailError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" required placeholder="+91 98765 43210">
+                                <span class="error-message" id="phoneError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="registerPassword">Password</label>
+                                <div class="password-input">
+                                    <input type="password" id="registerPassword" name="password" required placeholder="Create a password">
+                                    <button type="button" class="password-toggle" onclick="togglePassword('registerPassword')">
+                                        👁️
+                                    </button>
+                                </div>
+                                <div class="password-strength" id="passwordStrength"></div>
+                                <span class="error-message" id="registerPasswordError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirm Password</label>
+                                <div class="password-input">
+                                    <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm your password">
+                                    <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword')">
+                                        👁️
+                                    </button>
+                                </div>
+                                <span class="error-message" id="confirmPasswordError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userType">I am a</label>
+                                <select id="userType" name="userType" required>
+                                    <option value="">Select user type</option>
+                                    <option value="buyer">Property Buyer</option>
+                                    <option value="seller">Property Seller</option>
+                                    <option value="agent">Real Estate Agent</option>
+                                    <option value="builder">Builder/Developer</option>
+                                </select>
+                                <span class="error-message" id="userTypeError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="agreeTerms" id="agreeTerms" required>
+                                    <span class="checkmark"></span>
+                                    I agree to the <a href="#" class="link">Terms of Service</a> and <a href="#" class="link">Privacy Policy</a>
+                                </label>
+                                <span class="error-message" id="agreeTermsError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="newsletter" id="newsletter">
+                                    <span class="checkmark"></span>
+                                    Subscribe to newsletter for property updates
+                                </label>
+                            </div>
+
+                            <button type="submit" class="auth-btn primary">Create Account</button>
+
+                            <div class="divider">
+                                <span>or</span>
+                            </div>
+
+                            <div class="social-login">
+                                <button type="button" class="social-btn google" onclick="socialLogin('google')">
+                                    <span class="social-icon">🔍</span>
+                                    Sign up with Google
+                                </button>
+                                <button type="button" class="social-btn facebook" onclick="socialLogin('facebook')">
+                                    <span class="social-icon">📘</span>
+                                    Sign up with Facebook
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Forgot Password Form -->
+                    <div class="auth-form-container" id="forgotPasswordForm">
+                        <div class="form-header">
+                            <h3>Reset Password</h3>
+                            <p>Enter your email to receive reset instructions</p>
+                        </div>
+
+                        <form class="auth-form" id="forgotPasswordFormData">
+                            <div class="form-group">
+                                <label for="forgotEmail">Email Address</label>
+                                <input type="email" id="forgotEmail" name="email" required placeholder="Enter your email">
+                                <span class="error-message" id="forgotEmailError"></span>
+                            </div>
+
+                            <button type="submit" class="auth-btn primary">Send Reset Link</button>
+
+                            <div class="form-footer">
+                                <a href="#" class="link" onclick="showLogin()">← Back to Login</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Modal -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h4 id="modalTitle">Success!</h4>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="success-icon">✅</div>
+                <p id="modalMessage">Your account has been created successfully!</p>
+            </div>
+            <div class="modal-footer">
+                <button class="auth-btn primary" onclick="closeModal()" id="modalButton">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Property99</h4>
+                    <p>India's leading property portal for buying, selling, and renting properties.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">📘 Facebook</a>
+                        <a href="#" class="social-link">🐦 Twitter</a>
+                        <a href="#" class="social-link">📸 Instagram</a>
+                        <a href="#" class="social-link">💼 LinkedIn</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#" class="footer-link">About Us</a></li>
+                        <li><a href="#" class="footer-link">Terms & Conditions</a></li>
+                        <li><a href="#" class="footer-link">Privacy Policy</a></li>
+                        <li><a href="#" class="footer-link">FAQs</a></li>
+                        <li><a href="#" class="footer-link">Careers</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="listings.html" class="footer-link">Buy Property</a></li>
+                        <li><a href="listings.html?type=rent" class="footer-link">Rent Property</a></li>
+                        <li><a href="listings.html?type=commercial" class="footer-link">Commercial</a></li>
+                        <li><a href="agents.html" class="footer-link">Find Agents</a></li>
+                        <li><a href="#" class="footer-link">Property Valuation</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe to get latest property updates</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Enter your email" class="newsletter-input">
+                        <button type="submit" class="newsletter-btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Property99. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

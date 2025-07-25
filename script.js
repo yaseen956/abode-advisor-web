@@ -377,6 +377,9 @@ function initializeWebsite() {
         case 'contact':
             initializeContactPage();
             break;
+        case 'login':
+            initializeLoginPage();
+            break;
     }
     
     // Initialize common functionality
@@ -391,6 +394,7 @@ function getCurrentPage() {
     if (filename.includes('property-details')) return 'property-details';
     if (filename.includes('agents')) return 'agents';
     if (filename.includes('contact')) return 'contact';
+    if (filename.includes('login')) return 'login';
     return 'index';
 }
 
@@ -1317,9 +1321,513 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(addFadeInAnimation, 100);
 });
 
+// Login page functions
+function initializeLoginPage() {
+    setupAuthTabs();
+    setupAuthForms();
+    setupPasswordToggles();
+    setupPasswordStrength();
+}
+
+function setupAuthTabs() {
+    const tabs = document.querySelectorAll('.auth-tab');
+    const containers = document.querySelectorAll('.auth-form-container');
+    
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            const targetTab = this.dataset.tab;
+            
+            // Update active tab
+            tabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Show corresponding form
+            containers.forEach(container => {
+                container.classList.remove('active');
+                if (container.id === targetTab + 'Form') {
+                    container.classList.add('active');
+                }
+            });
+        });
+    });
+}
+
+function setupAuthForms() {
+    // Login form
+    const loginForm = document.getElementById('loginFormData');
+    if (loginForm) {
+        loginForm.addEventListener('submit', handleLogin);
+    }
+    
+    // Register form
+    const registerForm = document.getElementById('registerFormData');
+    if (registerForm) {
+        registerForm.addEventListener('submit', handleRegister);
+    }
+    
+    // Forgot password form
+    const forgotForm = document.getElementById('forgotPasswordFormData');
+    if (forgotForm) {
+        forgotForm.addEventListener('submit', handleForgotPassword);
+    }
+    
+    // Real-time validation
+    setupRealTimeValidation();
+}
+
+function setupPasswordToggles() {
+    // Password toggle functionality is handled by onclick in HTML
+}
+
+function setupPasswordStrength() {
+    const passwordInput = document.getElementById('registerPassword');
+    const strengthIndicator = document.getElementById('passwordStrength');
+    
+    if (passwordInput && strengthIndicator) {
+        passwordInput.addEventListener('input', function() {
+            const password = this.value;
+            const strength = calculatePasswordStrength(password);
+            
+            strengthIndicator.className = 'password-strength ' + strength;
+        });
+    }
+}
+
+function calculatePasswordStrength(password) {
+    let score = 0;
+    
+    if (password.length >= 8) score++;
+    if (/[a-z]/.test(password)) score++;
+    if (/[A-Z]/.test(password)) score++;
+    if (/[0-9]/.test(password)) score++;
+    if (/[^A-Za-z0-9]/.test(password)) score++;
+    
+    if (score < 3) return 'weak';
+    if (score < 5) return 'medium';
+    return 'strong';
+}
+
+function setupRealTimeValidation() {
+    // Email validation
+    const emailInputs = document.querySelectorAll('input[type="email"]');
+    emailInputs.forEach(input => {
+        input.addEventListener('blur', function() {
+            validateEmail(this);
+        });
+    });
+    
+    // Phone validation
+    const phoneInput = document.getElementById('phone');
+    if (phoneInput) {
+        phoneInput.addEventListener('blur', function() {
+            validatePhone(this);
+        });
+    }
+    
+    // Password confirmation
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+    const passwordInput = document.getElementById('registerPassword');
+    if (confirmPasswordInput && passwordInput) {
+        confirmPasswordInput.addEventListener('blur', function() {
+            validatePasswordMatch(passwordInput, this);
+        });
+    }
+}
+
+function validateEmail(input) {
+    const email = input.value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const errorElement = document.getElementById(input.id + 'Error');
+    
+    if (!email) {
+        showFieldError(input, errorElement, 'Email is required');
+        return false;
+    } else if (!emailRegex.test(email)) {
+        showFieldError(input, errorElement, 'Please enter a valid email address');
+        return false;
+    } else {
+        showFieldSuccess(input, errorElement);
+        return true;
+    }
+}
+
+function validatePhone(input) {
+    const phone = input.value.trim();
+    const phoneRegex = /^(\+91|91)?[6-9]\d{9}$/;
+    const errorElement = document.getElementById('phoneError');
+    
+    if (!phone) {
+        showFieldError(input, errorElement, 'Phone number is required');
+        return false;
+    } else if (!phoneRegex.test(phone.replace(/\s+/g, ''))) {
+        showFieldError(input, errorElement, 'Please enter a valid Indian phone number');
+        return false;
+    } else {
+        showFieldSuccess(input, errorElement);
+        return true;
+    }
+}
+
+function validatePasswordMatch(passwordInput, confirmInput) {
+    const password = passwordInput.value;
+    const confirmPassword = confirmInput.value;
+    const errorElement = document.getElementById('confirmPasswordError');
+    
+    if (confirmPassword && password !== confirmPassword) {
+        showFieldError(confirmInput, errorElement, 'Passwords do not match');
+        return false;
+    } else if (confirmPassword) {
+        showFieldSuccess(confirmInput, errorElement);
+        return true;
+    }
+    return true;
+}
+
+function showFieldError(input, errorElement, message) {
+    input.classList.remove('success');
+    input.classList.add('error');
+    if (errorElement) {
+        errorElement.textContent = message;
+    }
+}
+
+function showFieldSuccess(input, errorElement) {
+    input.classList.remove('error');
+    input.classList.add('success');
+    if (errorElement) {
+        errorElement.textContent = '';
+    }
+}
+
+function handleLogin(event) {
+    event.preventDefault();
+    
+    const form = event.target;
+    const formData = new FormData(form);
+    const email = formData.get('email');
+    const password = formData.get('password');
+    const rememberMe = formData.get('rememberMe');
+    
+    // Validate inputs
+    const emailInput = document.getElementById('loginEmail');
+    const passwordInput = document.getElementById('loginPassword');
+    
+    let isValid = true;
+    
+    if (!validateEmail(emailInput)) {
+        isValid = false;
+    }
+    
+    if (!password) {
+        showFieldError(passwordInput, document.getElementById('loginPasswordError'), 'Password is required');
+        isValid = false;
+    }
+    
+    if (!isValid) return;
+    
+    // Simulate login process
+    const submitBtn = form.querySelector('[type="submit"]');
+    const originalText = submitBtn.textContent;
+    
+    submitBtn.classList.add('loading');
+    submitBtn.disabled = true;
+    
+    setTimeout(() => {
+        submitBtn.classList.remove('loading');
+        submitBtn.disabled = false;
+        
+        // Simulate successful login
+        if (email === 'demo@property99.com' && password === 'demo123') {
+            // Store user session
+            const user = {
+                email: email,
+                name: 'Demo User',
+                loginTime: new Date().toISOString()
+            };
+            
+            if (rememberMe) {
+                localStorage.setItem('property99User', JSON.stringify(user));
+            } else {
+                sessionStorage.setItem('property99User', JSON.stringify(user));
+            }
+            
+            showModal('Login Successful!', 'Welcome back! You have been logged in successfully.', 'Continue to Dashboard');
+            
+            // Redirect after modal closes
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 2000);
+        } else {
+            showFieldError(passwordInput, document.getElementById('loginPasswordError'), 'Invalid email or password');
+        }
+    }, 2000);
+}
+
+function handleRegister(event) {
+    event.preventDefault();
+    
+    const form = event.target;
+    const formData = new FormData(form);
+    
+    // Validate all fields
+    let isValid = true;
+    
+    // Validate first name
+    const firstName = formData.get('firstName');
+    const firstNameInput = document.getElementById('firstName');
+    if (!firstName.trim()) {
+        showFieldError(firstNameInput, document.getElementById('firstNameError'), 'First name is required');
+        isValid = false;
+    }
+    
+    // Validate last name
+    const lastName = formData.get('lastName');
+    const lastNameInput = document.getElementById('lastName');
+    if (!lastName.trim()) {
+        showFieldError(lastNameInput, document.getElementById('lastNameError'), 'Last name is required');
+        isValid = false;
+    }
+    
+    // Validate email
+    const emailInput = document.getElementById('registerEmail');
+    if (!validateEmail(emailInput)) {
+        isValid = false;
+    }
+    
+    // Validate phone
+    const phoneInput = document.getElementById('phone');
+    if (!validatePhone(phoneInput)) {
+        isValid = false;
+    }
+    
+    // Validate password
+    const password = formData.get('password');
+    const passwordInput = document.getElementById('registerPassword');
+    if (password.length < 8) {
+        showFieldError(passwordInput, document.getElementById('registerPasswordError'), 'Password must be at least 8 characters long');
+        isValid = false;
+    }
+    
+    // Validate password confirmation
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+    if (!validatePasswordMatch(passwordInput, confirmPasswordInput)) {
+        isValid = false;
+    }
+    
+    // Validate user type
+    const userType = formData.get('userType');
+    const userTypeInput = document.getElementById('userType');
+    if (!userType) {
+        showFieldError(userTypeInput, document.getElementById('userTypeError'), 'Please select user type');
+        isValid = false;
+    }
+    
+    // Validate terms agreement
+    const agreeTerms = formData.get('agreeTerms');
+    if (!agreeTerms) {
+        const errorElement = document.getElementById('agreeTermsError');
+        if (errorElement) {
+            errorElement.textContent = 'You must agree to the terms and conditions';
+        }
+        isValid = false;
+    }
+    
+    if (!isValid) return;
+    
+    // Simulate registration process
+    const submitBtn = form.querySelector('[type="submit"]');
+    const originalText = submitBtn.textContent;
+    
+    submitBtn.classList.add('loading');
+    submitBtn.disabled = true;
+    
+    setTimeout(() => {
+        submitBtn.classList.remove('loading');
+        submitBtn.disabled = false;
+        
+        // Create user account
+        const user = {
+            id: Date.now(),
+            firstName: firstName,
+            lastName: lastName,
+            email: formData.get('email'),
+            phone: formData.get('phone'),
+            userType: userType,
+            newsletter: formData.get('newsletter') ? true : false,
+            registrationDate: new Date().toISOString()
+        };
+        
+        // Store user data
+        localStorage.setItem('property99User', JSON.stringify(user));
+        
+        showModal('Account Created!', `Welcome ${firstName}! Your account has been created successfully. You can now start exploring properties.`, 'Start Browsing');
+        
+        // Switch to login form after successful registration
+        setTimeout(() => {
+            document.querySelector('[data-tab="login"]').click();
+            document.getElementById('loginEmail').value = user.email;
+        }, 2000);
+        
+    }, 2000);
+}
+
+function handleForgotPassword(event) {
+    event.preventDefault();
+    
+    const form = event.target;
+    const formData = new FormData(form);
+    const email = formData.get('email');
+    
+    // Validate email
+    const emailInput = document.getElementById('forgotEmail');
+    if (!validateEmail(emailInput)) {
+        return;
+    }
+    
+    // Simulate password reset
+    const submitBtn = form.querySelector('[type="submit"]');
+    const originalText = submitBtn.textContent;
+    
+    submitBtn.classList.add('loading');
+    submitBtn.disabled = true;
+    
+    setTimeout(() => {
+        submitBtn.classList.remove('loading');
+        submitBtn.disabled = false;
+        
+        showModal('Reset Link Sent!', `A password reset link has been sent to ${email}. Please check your email and follow the instructions.`, 'Back to Login');
+        
+        // Switch back to login form
+        setTimeout(() => {
+            showLogin();
+        }, 2000);
+    }, 2000);
+}
+
+function showModal(title, message, buttonText = 'OK') {
+    const modal = document.getElementById('successModal');
+    const titleElement = document.getElementById('modalTitle');
+    const messageElement = document.getElementById('modalMessage');
+    const buttonElement = document.getElementById('modalButton');
+    
+    if (modal && titleElement && messageElement && buttonElement) {
+        titleElement.textContent = title;
+        messageElement.textContent = message;
+        buttonElement.textContent = buttonText;
+        
+        modal.classList.add('active');
+    }
+}
+
+function closeModal() {
+    const modal = document.getElementById('successModal');
+    if (modal) {
+        modal.classList.remove('active');
+    }
+}
+
+function showForgotPassword() {
+    const tabs = document.querySelectorAll('.auth-tab');
+    const containers = document.querySelectorAll('.auth-form-container');
+    
+    // Hide tabs
+    document.querySelector('.auth-tabs').style.display = 'none';
+    
+    // Hide all forms
+    containers.forEach(container => {
+        container.classList.remove('active');
+    });
+    
+    // Show forgot password form
+    document.getElementById('forgotPasswordForm').classList.add('active');
+}
+
+function showLogin() {
+    const tabs = document.querySelectorAll('.auth-tab');
+    const containers = document.querySelectorAll('.auth-form-container');
+    
+    // Show tabs
+    document.querySelector('.auth-tabs').style.display = 'flex';
+    
+    // Reset tab states
+    tabs.forEach(tab => tab.classList.remove('active'));
+    document.querySelector('[data-tab="login"]').classList.add('active');
+    
+    // Show login form
+    containers.forEach(container => {
+        container.classList.remove('active');
+    });
+    document.getElementById('loginForm').classList.add('active');
+}
+
+function togglePassword(inputId) {
+    const input = document.getElementById(inputId);
+    const toggle = input.nextElementSibling;
+    
+    if (input.type === 'password') {
+        input.type = 'text';
+        toggle.textContent = '🙈';
+    } else {
+        input.type = 'password';
+        toggle.textContent = '👁️';
+    }
+}
+
+function socialLogin(provider) {
+    // Simulate social login
+    showModal('Social Login', `${provider.charAt(0).toUpperCase() + provider.slice(1)} login would be integrated here in a real application.`, 'OK');
+}
+
+// Check if user is already logged in
+function checkUserLogin() {
+    const user = localStorage.getItem('property99User') || sessionStorage.getItem('property99User');
+    if (user) {
+        const userData = JSON.parse(user);
+        // Update header to show user is logged in
+        updateHeaderForLoggedInUser(userData);
+    }
+}
+
+function updateHeaderForLoggedInUser(user) {
+    const loginBtn = document.querySelector('.login-btn');
+    if (loginBtn) {
+        loginBtn.textContent = `Hi, ${user.firstName}`;
+        loginBtn.href = '#';
+        loginBtn.onclick = showUserMenu;
+    }
+}
+
+function showUserMenu() {
+    // Simple user menu functionality
+    const options = ['Dashboard', 'My Properties', 'Saved Searches', 'Profile', 'Logout'];
+    const choice = prompt('User Menu:\n' + options.map((opt, i) => `${i + 1}. ${opt}`).join('\n') + '\n\nEnter your choice (1-5):');
+    
+    if (choice === '5') {
+        logout();
+    } else if (choice >= '1' && choice <= '4') {
+        alert(`${options[choice - 1]} functionality would be implemented here.`);
+    }
+}
+
+function logout() {
+    localStorage.removeItem('property99User');
+    sessionStorage.removeItem('property99User');
+    window.location.reload();
+}
+
+// Initialize login check on page load
+document.addEventListener('DOMContentLoaded', function() {
+    checkUserLogin();
+});
+
 // Export functions for global access
 window.goToPropertyDetails = goToPropertyDetails;
 window.contactAgent = contactAgent;
 window.emailAgent = emailAgent;
 window.changeMainImage = changeMainImage;
 window.calculateEMI = calculateEMI;
+window.togglePassword = togglePassword;
+window.socialLogin = socialLogin;
+window.showForgotPassword = showForgotPassword;
+window.showLogin = showLogin;
+window.closeModal = closeModal;

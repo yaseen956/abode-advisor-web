@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Details - Property99</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1><a href="index.html">Property99</a></h1>
+                </div>
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li><a href="index.html" class="nav-link">Buy</a></li>
+                        <li><a href="listings.html?type=rent" class="nav-link">Rent</a></li>
+                        <li><a href="listings.html?type=commercial" class="nav-link">Commercial</a></li>
+                        <li><a href="listings.html?type=projects" class="nav-link">Projects</a></li>
+                        <li><a href="agents.html" class="nav-link">Agents</a></li>
+                        <li><a href="#" class="nav-link login-btn">Login</a></li>
+                    </ul>
+                </nav>
+                <div class="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <nav>
+                <a href="index.html">Home</a>
+                <span>/</span>
+                <a href="listings.html">Listings</a>
+                <span>/</span>
+                <span id="propertyTitle">Property Details</span>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Property Details Main -->
+    <main class="property-details-main">
+        <div class="container">
+            <!-- Property Header -->
+            <div class="property-header">
+                <div class="property-title-section">
+                    <h1 id="detailPropertyTitle">Loading...</h1>
+                    <p class="property-location" id="detailPropertyLocation">Loading...</p>
+                    <div class="property-meta">
+                        <span class="property-id" id="detailPropertyId">ID: Loading...</span>
+                        <span class="posted-date" id="detailPostedDate">Posted: Loading...</span>
+                    </div>
+                </div>
+                <div class="property-price-section">
+                    <div class="price" id="detailPropertyPrice">₹ Loading...</div>
+                    <div class="price-per-sqft" id="detailPricePerSqft">₹ Loading... per sq ft</div>
+                </div>
+            </div>
+
+            <!-- Property Content -->
+            <div class="property-content-layout">
+                <!-- Left Column -->
+                <div class="property-left-column">
+                    <!-- Image Gallery -->
+                    <div class="property-gallery">
+                        <div class="main-image">
+                            <img id="mainImage" src="https://via.placeholder.com/800x500?text=Property+Image" alt="Property">
+                            <div class="gallery-controls">
+                                <button class="gallery-btn prev-btn" id="prevImage">‹</button>
+                                <button class="gallery-btn next-btn" id="nextImage">›</button>
+                            </div>
+                        </div>
+                        <div class="thumbnail-gallery" id="thumbnailGallery">
+                            <!-- Thumbnails will be loaded by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Property Overview -->
+                    <div class="property-overview">
+                        <h3>Property Overview</h3>
+                        <div class="overview-grid">
+                            <div class="overview-item">
+                                <span class="label">Property Type</span>
+                                <span class="value" id="detailPropertyType">Loading...</span>
+                            </div>
+                            <div class="overview-item">
+                                <span class="label">Configuration</span>
+                                <span class="value" id="detailConfiguration">Loading...</span>
+                            </div>
+                            <div class="overview-item">
+                                <span class="label">Built-up Area</span>
+                                <span class="value" id="detailBuiltupArea">Loading...</span>
+                            </div>
+                            <div class="overview-item">
+                                <span class="label">Carpet Area</span>
+                                <span class="value" id="detailCarpetArea">Loading...</span>
+                            </div>
+                            <div class="overview-item">
+                                <span class="label">Floor</span>
+                                <span class="value" id="detailFloor">Loading...</span>
+                            </div>
+                            <div class="overview-item">
+                                <span class="label">Facing</span>
+                                <span class="value" id="detailFacing">Loading...</span>
+                            </div>
+                            <div class="overview-item">
+                                <span class="label">Furnishing</span>
+                                <span class="value" id="detailFurnishing">Loading...</span>
+                            </div>
+                            <div class="overview-item">
+                                <span class="label">Availability</span>
+                                <span class="value" id="detailAvailability">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Property Description -->
+                    <div class="property-description">
+                        <h3>Property Description</h3>
+                        <div class="description-content" id="detailDescription">
+                            Loading property description...
+                        </div>
+                    </div>
+
+                    <!-- Amenities -->
+                    <div class="property-amenities">
+                        <h3>Amenities</h3>
+                        <div class="amenities-grid" id="detailAmenities">
+                            <!-- Amenities will be loaded by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Location & Map -->
+                    <div class="property-location-section">
+                        <h3>Location</h3>
+                        <div class="location-details">
+                            <p id="detailFullAddress">Loading address...</p>
+                        </div>
+                        <div class="property-map">
+                            <iframe 
+                                id="propertyMap"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3782.2613173278896!2d73.91417831541671!3d18.559830787539413!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c147b8b3a3bf%3A0x6f7fdcc8e4d6c77e!2sPune%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1635750000000!5m2!1sen!2sin"
+                                width="100%" 
+                                height="300" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="property-right-column">
+                    <!-- Contact Card -->
+                    <div class="contact-card">
+                        <div class="agent-info">
+                            <div class="agent-avatar">
+                                <img id="agentPhoto" src="https://via.placeholder.com/60x60?text=Agent" alt="Agent">
+                            </div>
+                            <div class="agent-details">
+                                <h4 id="agentName">Loading...</h4>
+                                <p id="agentTitle">Loading...</p>
+                                <div class="agent-rating">
+                                    <span class="rating" id="agentRating">★★★★☆</span>
+                                    <span class="rating-count" id="agentRatingCount">(0 reviews)</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-buttons">
+                            <button class="contact-btn primary" id="callOwnerBtn">
+                                📞 Call Owner
+                            </button>
+                            <button class="contact-btn secondary" id="emailOwnerBtn">
+                                ✉️ Email Owner
+                            </button>
+                        </div>
+
+                        <!-- Contact Form -->
+                        <form class="contact-form" id="propertyContactForm">
+                            <h4>Send Message</h4>
+                            <div class="form-group">
+                                <input type="text" name="name" placeholder="Your Name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" name="email" placeholder="Your Email" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="tel" name="phone" placeholder="Your Phone" required>
+                            </div>
+                            <div class="form-group">
+                                <textarea name="message" placeholder="Your Message" rows="4" required>I am interested in this property. Please contact me with more details.</textarea>
+                            </div>
+                            <button type="submit" class="submit-btn">Send Message</button>
+                        </form>
+                    </div>
+
+                    <!-- EMI Calculator -->
+                    <div class="emi-calculator">
+                        <h4>EMI Calculator</h4>
+                        <form class="emi-form">
+                            <div class="form-group">
+                                <label>Loan Amount (₹)</label>
+                                <input type="number" id="loanAmount" placeholder="Enter amount">
+                            </div>
+                            <div class="form-group">
+                                <label>Interest Rate (%)</label>
+                                <input type="number" id="interestRate" value="8.5" step="0.1" placeholder="Enter rate">
+                            </div>
+                            <div class="form-group">
+                                <label>Loan Tenure (Years)</label>
+                                <input type="number" id="loanTenure" value="20" placeholder="Enter years">
+                            </div>
+                            <button type="button" class="calculate-btn" id="calculateEMI">Calculate EMI</button>
+                            <div class="emi-result" id="emiResult" style="display: none;">
+                                <div class="emi-amount">Monthly EMI: <span id="emiAmount">₹0</span></div>
+                                <div class="total-amount">Total Amount: <span id="totalAmount">₹0</span></div>
+                                <div class="total-interest">Total Interest: <span id="totalInterest">₹0</span></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Similar Properties -->
+            <div class="similar-properties">
+                <h3>Similar Properties</h3>
+                <div class="similar-properties-grid" id="similarProperties">
+                    <!-- Similar properties will be loaded by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Property99</h4>
+                    <p>India's leading property portal for buying, selling, and renting properties.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">📘 Facebook</a>
+                        <a href="#" class="social-link">🐦 Twitter</a>
+                        <a href="#" class="social-link">📸 Instagram</a>
+                        <a href="#" class="social-link">💼 LinkedIn</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#" class="footer-link">About Us</a></li>
+                        <li><a href="#" class="footer-link">Terms & Conditions</a></li>
+                        <li><a href="#" class="footer-link">Privacy Policy</a></li>
+                        <li><a href="#" class="footer-link">FAQs</a></li>
+                        <li><a href="#" class="footer-link">Careers</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="listings.html" class="footer-link">Buy Property</a></li>
+                        <li><a href="listings.html?type=rent" class="footer-link">Rent Property</a></li>
+                        <li><a href="listings.html?type=commercial" class="footer-link">Commercial</a></li>
+                        <li><a href="agents.html" class="footer-link">Find Agents</a></li>
+                        <li><a href="#" class="footer-link">Property Valuation</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe to get latest property updates</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Enter your email" class="newsletter-input">
+                        <button type="submit" class="newsletter-btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Property99. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

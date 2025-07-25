@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Listings - Property99</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1><a href="index.html">Property99</a></h1>
+                </div>
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li><a href="index.html" class="nav-link">Buy</a></li>
+                        <li><a href="listings.html?type=rent" class="nav-link">Rent</a></li>
+                        <li><a href="listings.html?type=commercial" class="nav-link">Commercial</a></li>
+                        <li><a href="listings.html?type=projects" class="nav-link">Projects</a></li>
+                        <li><a href="agents.html" class="nav-link">Agents</a></li>
+                        <li><a href="#" class="nav-link login-btn">Login</a></li>
+                    </ul>
+                </nav>
+                <div class="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <nav>
+                <a href="index.html">Home</a>
+                <span>/</span>
+                <span>Property Listings</span>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="listings-main">
+        <div class="container">
+            <div class="listings-layout">
+                <!-- Filters Sidebar -->
+                <aside class="filters-sidebar">
+                    <div class="filters-header">
+                        <h3>Filters</h3>
+                        <button class="clear-filters" id="clearFilters">Clear All</button>
+                    </div>
+
+                    <!-- Location Filter -->
+                    <div class="filter-group">
+                        <h4>Location</h4>
+                        <select id="filterCity" class="filter-select">
+                            <option value="">All Cities</option>
+                            <option value="mumbai">Mumbai</option>
+                            <option value="delhi">Delhi</option>
+                            <option value="bangalore">Bangalore</option>
+                            <option value="pune">Pune</option>
+                            <option value="hyderabad">Hyderabad</option>
+                            <option value="chennai">Chennai</option>
+                        </select>
+                    </div>
+
+                    <!-- Property Type Filter -->
+                    <div class="filter-group">
+                        <h4>Property Type</h4>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="flat" name="propertyType">
+                                <span class="checkmark"></span>
+                                Flat/Apartment
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="house" name="propertyType">
+                                <span class="checkmark"></span>
+                                Independent House
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="plot" name="propertyType">
+                                <span class="checkmark"></span>
+                                Plot/Land
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="commercial" name="propertyType">
+                                <span class="checkmark"></span>
+                                Commercial
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Budget Filter -->
+                    <div class="filter-group">
+                        <h4>Budget Range</h4>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="0-50" name="budget">
+                                <span class="checkmark"></span>
+                                Under ₹50 Lakh
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="50-100" name="budget">
+                                <span class="checkmark"></span>
+                                ₹50 Lakh - ₹1 Crore
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="100-200" name="budget">
+                                <span class="checkmark"></span>
+                                ₹1 - ₹2 Crore
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="200-500" name="budget">
+                                <span class="checkmark"></span>
+                                ₹2 - ₹5 Crore
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="500+" name="budget">
+                                <span class="checkmark"></span>
+                                Above ₹5 Crore
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- BHK Filter -->
+                    <div class="filter-group">
+                        <h4>Bedrooms</h4>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="1" name="bhk">
+                                <span class="checkmark"></span>
+                                1 BHK
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="2" name="bhk">
+                                <span class="checkmark"></span>
+                                2 BHK
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="3" name="bhk">
+                                <span class="checkmark"></span>
+                                3 BHK
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="4" name="bhk">
+                                <span class="checkmark"></span>
+                                4 BHK
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="5+" name="bhk">
+                                <span class="checkmark"></span>
+                                5+ BHK
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Furnishing Filter -->
+                    <div class="filter-group">
+                        <h4>Furnishing</h4>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="fully-furnished" name="furnishing">
+                                <span class="checkmark"></span>
+                                Fully Furnished
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="semi-furnished" name="furnishing">
+                                <span class="checkmark"></span>
+                                Semi Furnished
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="unfurnished" name="furnishing">
+                                <span class="checkmark"></span>
+                                Unfurnished
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Availability Filter -->
+                    <div class="filter-group">
+                        <h4>Availability</h4>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="immediate" name="availability">
+                                <span class="checkmark"></span>
+                                Immediate
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="within-30-days" name="availability">
+                                <span class="checkmark"></span>
+                                Within 30 Days
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="within-3-months" name="availability">
+                                <span class="checkmark"></span>
+                                Within 3 Months
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Posted By Filter -->
+                    <div class="filter-group">
+                        <h4>Posted By</h4>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="owner" name="postedBy">
+                                <span class="checkmark"></span>
+                                Owner
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" value="dealer" name="postedBy">
+                                <span class="checkmark"></span>
+                                Dealer
+                            </label>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Main Content Area -->
+                <div class="listings-content">
+                    <!-- Results Header -->
+                    <div class="results-header">
+                        <div class="results-info">
+                            <h2 id="resultsCount">Loading properties...</h2>
+                            <p id="resultsLocation"></p>
+                        </div>
+                        
+                        <div class="sort-controls">
+                            <label for="sortBy">Sort by:</label>
+                            <select id="sortBy" class="sort-select">
+                                <option value="relevance">Relevance</option>
+                                <option value="price-low-high">Price: Low to High</option>
+                                <option value="price-high-low">Price: High to Low</option>
+                                <option value="newest">Newest First</option>
+                                <option value="area-high-low">Area: High to Low</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Properties Grid -->
+                    <div class="properties-list" id="propertiesList">
+                        <!-- Properties will be loaded by JavaScript -->
+                    </div>
+
+                    <!-- Load More Button -->
+                    <div class="load-more-container">
+                        <button class="load-more-btn" id="loadMoreBtn">Load More Properties</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Property99</h4>
+                    <p>India's leading property portal for buying, selling, and renting properties.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">📘 Facebook</a>
+                        <a href="#" class="social-link">🐦 Twitter</a>
+                        <a href="#" class="social-link">📸 Instagram</a>
+                        <a href="#" class="social-link">💼 LinkedIn</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#" class="footer-link">About Us</a></li>
+                        <li><a href="#" class="footer-link">Terms & Conditions</a></li>
+                        <li><a href="#" class="footer-link">Privacy Policy</a></li>
+                        <li><a href="#" class="footer-link">FAQs</a></li>
+                        <li><a href="#" class="footer-link">Careers</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="listings.html" class="footer-link">Buy Property</a></li>
+                        <li><a href="listings.html?type=rent" class="footer-link">Rent Property</a></li>
+                        <li><a href="listings.html?type=commercial" class="footer-link">Commercial</a></li>
+                        <li><a href="agents.html" class="footer-link">Find Agents</a></li>
+                        <li><a href="#" class="footer-link">Property Valuation</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe to get latest property updates</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Enter your email" class="newsletter-input">
+                        <button type="submit" class="newsletter-btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Property99. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

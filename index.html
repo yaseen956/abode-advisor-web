@@ -1,25 +1,260 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>makan360 - Find Your Perfect Property | Buy, Sell, Rent</title>
-    <meta name="description" content="makan360 - Your trusted real estate platform. Find apartments, houses, villas, commercial properties, and plots. List your property and connect with genuine buyers and tenants." />
-    <meta name="author" content="makan360" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property99 - Buy, Rent & Sell Properties in India</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>Property99</h1>
+                </div>
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li><a href="index.html" class="nav-link active">Buy</a></li>
+                        <li><a href="listings.html?type=rent" class="nav-link">Rent</a></li>
+                        <li><a href="listings.html?type=commercial" class="nav-link">Commercial</a></li>
+                        <li><a href="listings.html?type=projects" class="nav-link">Projects</a></li>
+                        <li><a href="agents.html" class="nav-link">Agents</a></li>
+                        <li><a href="#" class="nav-link login-btn">Login</a></li>
+                    </ul>
+                </nav>
+                <div class="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
 
-    <meta property="og:title" content="makan360 - Find Your Perfect Property" />
-    <meta property="og:description" content="Your trusted real estate platform for buying, selling, and renting properties. Discover the best deals on apartments, houses, villas, and commercial spaces." />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <!-- Hero Section with Search -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Find Your Perfect Property</h2>
+                <p>Buy, Rent, or Sell properties in India's most popular cities</p>
+                
+                <!-- Search Form -->
+                <div class="search-form">
+                    <div class="search-tabs">
+                        <button class="tab-btn active" data-tab="buy">Buy</button>
+                        <button class="tab-btn" data-tab="rent">Rent</button>
+                        <button class="tab-btn" data-tab="commercial">Commercial</button>
+                    </div>
+                    
+                    <form class="search-inputs">
+                        <div class="input-group">
+                            <select id="city" name="city">
+                                <option value="">Select City</option>
+                                <option value="mumbai">Mumbai</option>
+                                <option value="delhi">Delhi</option>
+                                <option value="bangalore">Bangalore</option>
+                                <option value="pune">Pune</option>
+                                <option value="hyderabad">Hyderabad</option>
+                                <option value="chennai">Chennai</option>
+                                <option value="kolkata">Kolkata</option>
+                                <option value="ahmedabad">Ahmedabad</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input-group">
+                            <select id="propertyType" name="propertyType">
+                                <option value="">Property Type</option>
+                                <option value="flat">Flat/Apartment</option>
+                                <option value="house">Independent House</option>
+                                <option value="plot">Plot/Land</option>
+                                <option value="commercial">Commercial</option>
+                                <option value="pg">PG/Hostel</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input-group">
+                            <select id="budget" name="budget">
+                                <option value="">Budget</option>
+                                <option value="0-50">Under ₹50 Lakh</option>
+                                <option value="50-100">₹50 Lakh - ₹1 Crore</option>
+                                <option value="100-200">₹1 - ₹2 Crore</option>
+                                <option value="200-500">₹2 - ₹5 Crore</option>
+                                <option value="500+">Above ₹5 Crore</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input-group">
+                            <select id="bhk" name="bhk">
+                                <option value="">BHK</option>
+                                <option value="1">1 BHK</option>
+                                <option value="2">2 BHK</option>
+                                <option value="3">3 BHK</option>
+                                <option value="4">4 BHK</option>
+                                <option value="5+">5+ BHK</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="search-btn">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-  </head>
+    <!-- Popular Cities -->
+    <section class="popular-cities">
+        <div class="container">
+            <h3>Popular Cities</h3>
+            <div class="cities-grid">
+                <a href="listings.html?city=mumbai" class="city-card">
+                    <img src="https://via.placeholder.com/200x120?text=Mumbai" alt="Mumbai">
+                    <div class="city-info">
+                        <h4>Mumbai</h4>
+                        <p>15,000+ Properties</p>
+                    </div>
+                </a>
+                <a href="listings.html?city=delhi" class="city-card">
+                    <img src="https://via.placeholder.com/200x120?text=Delhi" alt="Delhi">
+                    <div class="city-info">
+                        <h4>Delhi</h4>
+                        <p>12,000+ Properties</p>
+                    </div>
+                </a>
+                <a href="listings.html?city=bangalore" class="city-card">
+                    <img src="https://via.placeholder.com/200x120?text=Bangalore" alt="Bangalore">
+                    <div class="city-info">
+                        <h4>Bangalore</h4>
+                        <p>18,000+ Properties</p>
+                    </div>
+                </a>
+                <a href="listings.html?city=pune" class="city-card">
+                    <img src="https://via.placeholder.com/200x120?text=Pune" alt="Pune">
+                    <div class="city-info">
+                        <h4>Pune</h4>
+                        <p>8,500+ Properties</p>
+                    </div>
+                </a>
+                <a href="listings.html?city=hyderabad" class="city-card">
+                    <img src="https://via.placeholder.com/200x120?text=Hyderabad" alt="Hyderabad">
+                    <div class="city-info">
+                        <h4>Hyderabad</h4>
+                        <p>9,200+ Properties</p>
+                    </div>
+                </a>
+                <a href="listings.html?city=chennai" class="city-card">
+                    <img src="https://via.placeholder.com/200x120?text=Chennai" alt="Chennai">
+                    <div class="city-info">
+                        <h4>Chennai</h4>
+                        <p>7,800+ Properties</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
 
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+    <!-- Featured Properties -->
+    <section class="featured-properties">
+        <div class="container">
+            <div class="section-header">
+                <h3>Featured Properties</h3>
+                <a href="listings.html" class="view-all">View All Properties</a>
+            </div>
+            
+            <div class="properties-grid" id="featuredProperties">
+                <!-- Properties will be loaded by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- New Projects -->
+    <section class="new-projects">
+        <div class="container">
+            <h3>New Residential Projects</h3>
+            <div class="projects-slider">
+                <div class="project-banner">
+                    <img src="https://via.placeholder.com/400x200?text=Luxury+Apartments" alt="Project">
+                    <div class="project-info">
+                        <h4>Godrej Elements</h4>
+                        <p>Hinjawadi, Pune</p>
+                        <span class="price">₹65 Lakh - ₹1.2 Cr</span>
+                    </div>
+                </div>
+                <div class="project-banner">
+                    <img src="https://via.placeholder.com/400x200?text=Premium+Villas" alt="Project">
+                    <div class="project-info">
+                        <h4>Prestige Lakeside Habitat</h4>
+                        <p>Varthur, Bangalore</p>
+                        <span class="price">₹1.8 Cr - ₹3.5 Cr</span>
+                    </div>
+                </div>
+                <div class="project-banner">
+                    <img src="https://via.placeholder.com/400x200?text=Smart+Homes" alt="Project">
+                    <div class="project-info">
+                        <h4>DLF Privana</h4>
+                        <p>Sector 76, Gurgaon</p>
+                        <span class="price">₹2.2 Cr - ₹4.8 Cr</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Property99</h4>
+                    <p>India's leading property portal for buying, selling, and renting properties.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">📘 Facebook</a>
+                        <a href="#" class="social-link">🐦 Twitter</a>
+                        <a href="#" class="social-link">📸 Instagram</a>
+                        <a href="#" class="social-link">💼 LinkedIn</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#" class="footer-link">About Us</a></li>
+                        <li><a href="#" class="footer-link">Terms & Conditions</a></li>
+                        <li><a href="#" class="footer-link">Privacy Policy</a></li>
+                        <li><a href="#" class="footer-link">FAQs</a></li>
+                        <li><a href="#" class="footer-link">Careers</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="listings.html" class="footer-link">Buy Property</a></li>
+                        <li><a href="listings.html?type=rent" class="footer-link">Rent Property</a></li>
+                        <li><a href="listings.html?type=commercial" class="footer-link">Commercial</a></li>
+                        <li><a href="agents.html" class="footer-link">Find Agents</a></li>
+                        <li><a href="#" class="footer-link">Property Valuation</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe to get latest property updates</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Enter your email" class="newsletter-input">
+                        <button type="submit" class="newsletter-btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Property99. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
 </html>

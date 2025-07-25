@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Property99</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1><a href="index.html">Property99</a></h1>
+                </div>
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li><a href="index.html" class="nav-link">Buy</a></li>
+                        <li><a href="listings.html?type=rent" class="nav-link">Rent</a></li>
+                        <li><a href="listings.html?type=commercial" class="nav-link">Commercial</a></li>
+                        <li><a href="listings.html?type=projects" class="nav-link">Projects</a></li>
+                        <li><a href="agents.html" class="nav-link">Agents</a></li>
+                        <li><a href="#" class="nav-link login-btn">Login</a></li>
+                    </ul>
+                </nav>
+                <div class="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <nav>
+                <a href="index.html">Home</a>
+                <span>/</span>
+                <span>Contact Us</span>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Contact Main -->
+    <main class="contact-main">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1>Contact Us</h1>
+                <p>Get in touch with us for any queries about properties or our services</p>
+            </div>
+
+            <!-- Contact Content -->
+            <div class="contact-content">
+                <!-- Contact Information -->
+                <div class="contact-info">
+                    <div class="info-section">
+                        <h3>Get in Touch</h3>
+                        <p>We're here to help you find your perfect property. Reach out to us through any of the following channels:</p>
+                        
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <div class="contact-icon">📍</div>
+                                <div class="contact-text">
+                                    <h4>Office Address</h4>
+                                    <p>Property99 Headquarters<br>
+                                    123 Business Tower, 5th Floor<br>
+                                    Bandra Kurla Complex, Mumbai - 400051<br>
+                                    Maharashtra, India</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <div class="contact-icon">📞</div>
+                                <div class="contact-text">
+                                    <h4>Phone Numbers</h4>
+                                    <p>Customer Support: +91 98765 43210<br>
+                                    Sales Enquiry: +91 98765 43211<br>
+                                    Office: +91 22 6789 0123</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <div class="contact-icon">✉️</div>
+                                <div class="contact-text">
+                                    <h4>Email Addresses</h4>
+                                    <p>General: info@property99.com<br>
+                                    Support: support@property99.com<br>
+                                    Sales: sales@property99.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <div class="contact-icon">🕒</div>
+                                <div class="contact-text">
+                                    <h4>Business Hours</h4>
+                                    <p>Monday - Friday: 9:00 AM - 7:00 PM<br>
+                                    Saturday: 9:00 AM - 5:00 PM<br>
+                                    Sunday: 10:00 AM - 4:00 PM</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Social Media -->
+                    <div class="social-section">
+                        <h3>Follow Us</h3>
+                        <div class="social-links-large">
+                            <a href="#" class="social-link-large facebook">
+                                <span class="social-icon">📘</span>
+                                <span class="social-text">Facebook</span>
+                            </a>
+                            <a href="#" class="social-link-large twitter">
+                                <span class="social-icon">🐦</span>
+                                <span class="social-text">Twitter</span>
+                            </a>
+                            <a href="#" class="social-link-large instagram">
+                                <span class="social-icon">📸</span>
+                                <span class="social-text">Instagram</span>
+                            </a>
+                            <a href="#" class="social-link-large linkedin">
+                                <span class="social-icon">💼</span>
+                                <span class="social-text">LinkedIn</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="contact-form-section">
+                    <div class="form-container">
+                        <h3>Send us a Message</h3>
+                        <form class="contact-form" id="contactForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName">First Name *</label>
+                                    <input type="text" id="firstName" name="firstName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last Name *</label>
+                                    <input type="text" id="lastName" name="lastName" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="email">Email Address *</label>
+                                    <input type="email" id="email" name="email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone Number</label>
+                                    <input type="tel" id="phone" name="phone">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject">Subject *</label>
+                                <select id="subject" name="subject" required>
+                                    <option value="">Select Subject</option>
+                                    <option value="general">General Inquiry</option>
+                                    <option value="buying">Buying Property</option>
+                                    <option value="selling">Selling Property</option>
+                                    <option value="renting">Renting Property</option>
+                                    <option value="agent">Agent Services</option>
+                                    <option value="technical">Technical Support</option>
+                                    <option value="feedback">Feedback</option>
+                                    <option value="partnership">Partnership Opportunity</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message">Message *</label>
+                                <textarea id="message" name="message" rows="6" placeholder="Please provide details about your inquiry..." required></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="newsletter" id="newsletter">
+                                    <span class="checkmark"></span>
+                                    Subscribe to our newsletter for property updates
+                                </label>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="terms" id="terms" required>
+                                    <span class="checkmark"></span>
+                                    I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a> *
+                                </label>
+                            </div>
+                            
+                            <button type="submit" class="submit-btn">Send Message</button>
+                        </form>
+                        
+                        <!-- Success Message -->
+                        <div class="success-message" id="successMessage" style="display: none;">
+                            <h4>✅ Message Sent Successfully!</h4>
+                            <p>Thank you for contacting us. We'll get back to you within 24 hours.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map Section -->
+            <div class="map-section">
+                <h3>Find Us on Map</h3>
+                <div class="map-container">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3771.9999999999995!2d72.86777901537214!3d19.059569987102333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c8f0b7e9d89b%3A0x4b8a0f4a9b9b9b9b!2sBandra%20Kurla%20Complex%2C%20Mumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1635750000000!5m2!1sen!2sin"
+                        width="100%" 
+                        height="400" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy"
+                        title="Property99 Office Location">
+                    </iframe>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="faq-section">
+                <h3>Frequently Asked Questions</h3>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <h4>How can I list my property?</h4>
+                        <p>You can list your property by creating an account and using our property listing form. Our team will verify and publish your listing within 24 hours.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Is there any fee for searching properties?</h4>
+                        <p>No, searching and browsing properties on Property99 is completely free. We only charge a small commission when a transaction is completed.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>How do I contact a property owner?</h4>
+                        <p>You can contact property owners directly through our platform using the contact forms or phone numbers provided in the property listings.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Do you provide home loan assistance?</h4>
+                        <p>Yes, we have partnerships with leading banks and financial institutions to help you get the best home loan deals at competitive rates.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Property99</h4>
+                    <p>India's leading property portal for buying, selling, and renting properties.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">📘 Facebook</a>
+                        <a href="#" class="social-link">🐦 Twitter</a>
+                        <a href="#" class="social-link">📸 Instagram</a>
+                        <a href="#" class="social-link">💼 LinkedIn</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#" class="footer-link">About Us</a></li>
+                        <li><a href="#" class="footer-link">Terms & Conditions</a></li>
+                        <li><a href="#" class="footer-link">Privacy Policy</a></li>
+                        <li><a href="#" class="footer-link">FAQs</a></li>
+                        <li><a href="#" class="footer-link">Careers</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="listings.html" class="footer-link">Buy Property</a></li>
+                        <li><a href="listings.html?type=rent" class="footer-link">Rent Property</a></li>
+                        <li><a href="listings.html?type=commercial" class="footer-link">Commercial</a></li>
+                        <li><a href="agents.html" class="footer-link">Find Agents</a></li>
+                        <li><a href="#" class="footer-link">Property Valuation</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe to get latest property updates</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Enter your email" class="newsletter-input">
+                        <button type="submit" class="newsletter-btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Property99. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

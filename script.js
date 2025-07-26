@@ -302,7 +302,13 @@ const AGENTS_DATA = [
 ];
 
 // Global variables
-let currentProperties = [...PROPERTIES_DATA];
+let currentProperties = [];
+
+// Initialize properties with user listings + default data
+function initializeCurrentProperties() {
+    const userListings = getUserListedProperties();
+    currentProperties = [...userListings, ...PROPERTIES_DATA];
+}
 let currentAgents = [...AGENTS_DATA];
 let currentPropertyIndex = 0;
 let currentImageIndex = 0;
@@ -465,33 +471,148 @@ function loadFeaturedProperties() {
     const container = document.getElementById('featuredProperties');
     if (!container) return;
     
-    const featuredProperties = PROPERTIES_DATA.slice(0, 6);
+    // Get user-listed properties from localStorage
+    const userListings = getUserListedProperties();
+    
+    // Combine user listings with default properties (user listings first)
+    const allProperties = [...userListings, ...PROPERTIES_DATA];
+    
+    // Get featured properties (first 6, prioritizing user listings)
+    const featuredProperties = allProperties.slice(0, 6);
     
     container.innerHTML = featuredProperties.map(property => `
-        <div class="property-card" onclick="goToPropertyDetails(${property.id})">
+        <div class="property-card" onclick="goToPropertyDetails('${property.id}')">
             <div class="property-image">
-                <img src="${property.images[0]}" alt="${property.title}">
-                <div class="property-type-badge">${getPropertyTypeLabel(property.type)}</div>
+                <img src="${property.images ? property.images[0] : 'https://via.placeholder.com/300x200?text=Property+Image'}" alt="${property.title || property.propertyTitle}">
+                <div class="property-type-badge">${getPropertyTypeLabel(property.type || property.propertyType)}</div>
+                ${property.isUserListed ? '<div class="new-listing-badge">New Listing</div>' : ''}
             </div>
             <div class="property-details">
-                <div class="property-price">${formatPrice(property.price)}</div>
-                <div class="property-title">${property.title}</div>
-                <div class="property-location">📍 ${property.location}</div>
+                <div class="property-price">${formatPrice(property.price || property.expectedPrice)}</div>
+                <div class="property-title">${property.title || property.propertyTitle}</div>
+                <div class="property-location">📍 ${property.location || `${property.locality}, ${getCityLabel(property.city)}`}</div>
                 <div class="property-features">
-                    <span>${getBHKLabel(property.bhk)}</span>
-                    <span>${formatArea(property.area)}</span>
+                    <span>${getBHKLabel(property.bhk || property.bedrooms)}</span>
+                    <span>${formatArea(property.area || property.builtupArea)}</span>
                     <span>${property.furnishing}</span>
                 </div>
-                <button class="contact-btn" onclick="event.stopPropagation(); contactAgent(${property.agent.phone})">
-                    Contact Agent
+                <button class="contact-btn" onclick="event.stopPropagation(); contactAgent('${property.agent ? property.agent.phone : property.contactPhone}')">
+                    Contact ${property.ownerType === 'owner' ? 'Owner' : property.ownerType === 'agent' ? 'Agent' : property.agent ? 'Agent' : 'Owner'}
                 </button>
             </div>
         </div>
     `).join('');
 }
 
+function getUserListedProperties() {
+    try {
+        const userListings = JSON.parse(localStorage.getItem('userPropertyListings') || '[]');
+        
+        // Filter only approved/active listings and convert to display format
+        return userListings
+            .filter(listing => listing.status === 'approved' || listing.status === 'pending')
+            .map(listing => convertUserListingToProperty(listing))
+            .sort((a, b) => new Date(b.submissionDate) - new Date(a.submissionDate)); // Latest first
+    } catch (error) {
+        console.error('Error loading user listings:', error);
+        return [];
+    }
+}
+
+function convertUserListingToProperty(listing) {
+    // Convert user listing format to property card format
+    return {
+        id: listing.id || `user-${Date.now()}`,
+        title: listing.propertyTitle,
+        propertyTitle: listing.propertyTitle,
+        location: `${listing.locality}, ${getCityLabel(listing.city)}`,
+        city: listing.city,
+        locality: listing.locality,
+        price: parseInt(listing.expectedPrice),
+        expectedPrice: parseInt(listing.expectedPrice),
+        type: listing.propertyType,
+        propertyType: listing.propertyType,
+        bhk: listing.bedrooms,
+        bedrooms: listing.bedrooms,
+        area: parseInt(listing.builtupArea),
+        builtupArea: parseInt(listing.builtupArea),
+        carpetArea: parseInt(listing.carpetArea) || null,
+        furnishing: listing.furnishing,
+        availability: listing.availability,
+        postedBy: listing.ownerType,
+        ownerType: listing.ownerType,
+        contactPhone: listing.contactPhone,
+        floor: listing.propertyFloor ? `${listing.propertyFloor} of ${listing.totalFloors}` : null,
+        facing: listing.facing,
+        description: listing.propertyDescription,
+        amenities: Array.isArray(listing.amenities) ? listing.amenities : [],
+        images: generatePropertyImages(listing),
+        agent: {
+            name: listing.ownerName,
+            phone: listing.contactPhone,
+            email: listing.contactEmail,
+            title: listing.ownerType === 'agent' ? 'Real Estate Agent' : 
+                   listing.ownerType === 'builder' ? 'Builder/Developer' : 'Property Owner',
+            rating: 4.0,
+            reviews: Math.floor(Math.random() * 50) + 10 // Random review count
+        },
+        postedDate: listing.submissionDate,
+        submissionDate: listing.submissionDate,
+        status: listing.status,
+        isUserListed: true, // Flag to identify user-listed properties
+        fullAddress: listing.address,
+        pincode: listing.pincode,
+        landmark: listing.landmark
+    };
+}
+
+function generatePropertyImages(listing) {
+    // Generate placeholder images based on property type
+    const propertyType = listing.propertyType;
+    const imageCount = listing.imageCount || 3;
+    const images = [];
+    
+    const imageTypes = {
+        'flat': ['Living+Room', 'Bedroom', 'Kitchen', 'Balcony', 'Bathroom'],
+        'house': ['Exterior+View', 'Living+Room', 'Master+Bedroom', 'Kitchen', 'Garden'],
+        'plot': ['Plot+Overview', 'Boundary+View', 'Road+Access', 'Surroundings'],
+        'commercial': ['Office+Space', 'Reception', 'Conference+Room', 'Workspace'],
+        'office': ['Office+Interior', 'Workstation', 'Meeting+Room', 'Reception'],
+        'shop': ['Shop+Front', 'Interior+View', 'Display+Area', 'Storage'],
+        'warehouse': ['Warehouse+Interior', 'Loading+Area', 'Storage+Space', 'Entrance']
+    };
+    
+    const typeImages = imageTypes[propertyType] || imageTypes['flat'];
+    
+    for (let i = 0; i < Math.min(imageCount, 5); i++) {
+        const imageType = typeImages[i] || 'Property+View';
+        images.push(`https://via.placeholder.com/800x500?text=${imageType}`);
+    }
+    
+    return images;
+}
+
+function getCityLabel(cityCode) {
+    const cities = {
+        'mumbai': 'Mumbai',
+        'delhi': 'Delhi',
+        'bangalore': 'Bangalore',
+        'pune': 'Pune',
+        'hyderabad': 'Hyderabad',
+        'chennai': 'Chennai',
+        'kolkata': 'Kolkata',
+        'ahmedabad': 'Ahmedabad',
+        'jaipur': 'Jaipur',
+        'surat': 'Surat'
+    };
+    return cities[cityCode] || cityCode.charAt(0).toUpperCase() + cityCode.slice(1);
+}
+
 // Listings page functions
 function setupListingsPage() {
+    // Initialize properties with user listings
+    initializeCurrentProperties();
+    
     // Parse URL parameters
     const urlParams = new URLSearchParams(window.location.search);
     const type = urlParams.get('type');
@@ -532,29 +653,30 @@ function loadProperties() {
     
     // Display properties
     container.innerHTML = filteredProperties.map(property => `
-        <div class="property-list-item" onclick="goToPropertyDetails(${property.id})">
+        <div class="property-list-item" onclick="goToPropertyDetails('${property.id}')">
             <div class="property-list-image">
-                <img src="${property.images[0]}" alt="${property.title}">
+                <img src="${property.images ? property.images[0] : 'https://via.placeholder.com/300x200?text=Property+Image'}" alt="${property.title || property.propertyTitle}">
+                ${property.isUserListed ? '<div class="new-listing-badge">New</div>' : ''}
             </div>
             <div class="property-list-details">
                 <div class="property-list-header">
-                    <div class="property-list-title">${property.title}</div>
-                    <div class="property-list-location">📍 ${property.location}</div>
+                    <div class="property-list-title">${property.title || property.propertyTitle}</div>
+                    <div class="property-list-location">📍 ${property.location || `${property.locality}, ${getCityLabel(property.city)}`}</div>
                 </div>
-                <div class="property-list-price">${formatPrice(property.price)}</div>
+                <div class="property-list-price">${formatPrice(property.price || property.expectedPrice)}</div>
                 <div class="property-list-features">
-                    <span><strong>Type:</strong> ${getPropertyTypeLabel(property.type)}</span>
-                    <span><strong>Area:</strong> ${formatArea(property.area)}</span>
-                    <span><strong>Config:</strong> ${getBHKLabel(property.bhk)}</span>
-                    <span><strong>Floor:</strong> ${property.floor}</span>
-                    <span><strong>Facing:</strong> ${property.facing}</span>
-                    <span><strong>Posted:</strong> ${formatDate(property.postedDate)}</span>
+                    <span><strong>Type:</strong> ${getPropertyTypeLabel(property.type || property.propertyType)}</span>
+                    <span><strong>Area:</strong> ${formatArea(property.area || property.builtupArea)}</span>
+                    <span><strong>Config:</strong> ${getBHKLabel(property.bhk || property.bedrooms)}</span>
+                    <span><strong>Floor:</strong> ${property.floor || (property.propertyFloor ? `${property.propertyFloor} of ${property.totalFloors}` : 'N/A')}</span>
+                    <span><strong>Facing:</strong> ${property.facing || 'N/A'}</span>
+                    <span><strong>Posted:</strong> ${formatDate(property.postedDate || property.submissionDate)}</span>
                 </div>
                 <div class="property-list-actions">
-                    <button class="contact-btn" onclick="event.stopPropagation(); contactAgent('${property.agent.phone}')">
+                    <button class="contact-btn" onclick="event.stopPropagation(); contactAgent('${property.agent ? property.agent.phone : property.contactPhone}')">
                         📞 Contact
                     </button>
-                    <button class="contact-btn secondary" onclick="event.stopPropagation(); emailAgent('${property.agent.email}')">
+                    <button class="contact-btn secondary" onclick="event.stopPropagation(); emailAgent('${property.agent ? property.agent.email : property.contactEmail}')">
                         ✉️ Email
                     </button>
                 </div>
@@ -2297,7 +2419,7 @@ function handleFormSubmission(event) {
     const propertyId = `P99-${new Date().getFullYear()}-${String(Date.now()).slice(-6)}`;
     propertyData.id = propertyId;
     propertyData.submissionDate = new Date().toISOString();
-    propertyData.status = 'pending';
+    propertyData.status = 'approved'; // Auto-approve for demo purposes
     
     // Simulate form submission
     const submitBtn = document.getElementById('submitBtn');
@@ -2316,6 +2438,11 @@ function handleFormSubmission(event) {
         // Show success modal
         document.getElementById('generatedPropertyId').textContent = propertyId;
         document.getElementById('successModal').classList.add('active');
+        
+        // Show notification about homepage display
+        setTimeout(() => {
+            alert('🎉 Great! Your property is now live and will appear on the homepage and listings page for potential buyers to see!');
+        }, 4000);
         
     }, 3000);
 }

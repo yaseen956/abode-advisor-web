@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- to connect db listing with homepage -->
+     <div id="property-list"></div>
+
     <!-- Header -->
     <header class="header">
         <div class="container">
@@ -107,7 +110,7 @@
                     <p>Fill in the details below to list your property</p>
                 </div>
 
-                <form class="listing-form" id="propertyListingForm">
+                <form class="listing-form" id="propertyListingForm" action="/api/sell-property" method="post">
                     <!-- Progress Steps -->
                     <div class="form-steps">
                         <div class="step active" data-step="1">

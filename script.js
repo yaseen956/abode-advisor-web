@@ -1,4 +1,4 @@
-// Fake data for properties, agents, and other content
+// Fake data for properties, agents, and other content for mongodb
 const PROPERTIES_DATA = [
     {
         id: 1,
@@ -313,6 +313,61 @@ let currentAgents = [...AGENTS_DATA];
 let currentPropertyIndex = 0;
 let currentImageIndex = 0;
 let currentProperty = null;
+
+//for server to listing db with homepage file sell-property
+
+
+// for login page for mysql
+document.getElementById("registerFormData").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const data = {
+    firstName: document.getElementById("firstName").value,
+    lastName: document.getElementById("lastName").value,
+    email: document.getElementById("registerEmail").value,
+    phone: document.getElementById("phone").value,
+    password: document.getElementById("registerPassword").value,
+    userType: document.getElementById("userType").value,
+  };
+
+  const res = await fetch("http://localhost:5000/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  const result = await res.json();
+  alert(result.message);
+});
+
+
+document.getElementById("loginFormData").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const data = {
+    email: document.getElementById("loginEmail").value,
+    password: document.getElementById("loginPassword").value,
+  };
+
+  const res = await fetch("http://localhost:5000/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  const result = await res.json();
+  if (res.ok) {
+    alert("Login successful");
+    // Redirect or store token here
+  } else {
+    alert(result.message);
+  }
+});
+
 
 // Utility functions
 function formatPrice(price) {
@@ -1941,11 +1996,6 @@ function logout() {
     window.location.reload();
 }
 
-// Initialize login check on page load
-document.addEventListener('DOMContentLoaded', function() {
-    checkUserLogin();
-});
-
 // Export functions for global access
 window.goToPropertyDetails = goToPropertyDetails;
 window.contactAgent = contactAgent;
@@ -1957,6 +2007,14 @@ window.socialLogin = socialLogin;
 window.showForgotPassword = showForgotPassword;
 window.showLogin = showLogin;
 window.closeModal = closeModal;
+
+// Initialize login check on page load 📝🔧
+document.addEventListener('DOMContentLoaded', function () {
+    checkUserLogin();         // if needed for login check
+    setupFormSteps();         // 🔧 required for next/prev buttons
+    setupFormSubmission();    // 📝 required for form submit to backend
+});
+
 
 // Sell Property Page Functions
 let currentStep = 1;
@@ -2411,7 +2469,7 @@ function handleFormSubmission(event) {
         }
     }
     
-    // Add uploaded images
+    // Add uploaded images (names only, for now)
     propertyData.images = uploadedImages.map(img => img.file.name);
     propertyData.imageCount = uploadedImages.length;
     
@@ -2425,27 +2483,33 @@ function handleFormSubmission(event) {
     const submitBtn = document.getElementById('submitBtn');
     submitBtn.classList.add('loading');
     submitBtn.disabled = true;
-    
-    setTimeout(() => {
+
+    // Send data to backend
+    fetch('http://localhost:5000/api/sell-property', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(propertyData)
+    })
+    .then(response => {
         submitBtn.classList.remove('loading');
         submitBtn.disabled = false;
-        
-        // Store property data
-        const existingListings = JSON.parse(localStorage.getItem('userPropertyListings') || '[]');
-        existingListings.push(propertyData);
-        localStorage.setItem('userPropertyListings', JSON.stringify(existingListings));
-        
+        if (!response.ok) throw new Error('Failed to submit property');
+        return response.json();
+    })
+    .then(data => {
         // Show success modal
         document.getElementById('generatedPropertyId').textContent = propertyId;
         document.getElementById('successModal').classList.add('active');
-        
-        // Show notification about homepage display
         setTimeout(() => {
             alert('🎉 Great! Your property is now live and will appear on the homepage and listings page for potential buyers to see!');
         }, 4000);
-        
-    }, 3000);
-}
+    })
+    .catch(error => {
+        alert('Error submitting property: ' + error.message);
+    });
+  }
 
 function listAnotherProperty() {
     // Reset form
